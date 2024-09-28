@@ -1,0 +1,8 @@
+# Add node modules
+node_modules/*
+
+# Webstorm config files
+.idea/*
+
+.DS_Store
+package-lock.json
