@@ -6,3 +6,7 @@ node_modules/*
 
 .DS_Store
 package-lock.json
+
+# Angular files
+dist/*
+.angular/*
