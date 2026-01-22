@@ -1,0 +1,11 @@
+.subtitle_text {
+  font-family: var(--font-monaco), "JetBrains Mono", monospace;
+}
+
+.title_text {
+  font-family: var(--font-arvo), "Outfit", sans-serif;
+}
+
+.nav_text {
+  font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
+}
