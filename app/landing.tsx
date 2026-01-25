@@ -4,9 +4,10 @@ import Image from "next/image";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./landing.module.css";
 import Link from "next/link";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 gsap.registerPlugin(TextPlugin, ScrambleTextPlugin);
 
@@ -17,46 +18,53 @@ export default function Landing() {
 
   const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#________";
 
+  const [showScrollDownHint, setShowScrollDownHint] = useState(false);
+
   useEffect(() => {
     if (!titleRef.current || !cursorRef.current || !subtextRef.current) return;
 
-    const timeline = gsap.timeline();
-
-    timeline
-      .to(cursorRef.current, {
-        duration: 0.5,
-        opacity: 0,
-        repeat: 5,
-        yoyo: true,
-        ease: "power1.inOut",
-      })
-      .to(
-        titleRef.current,
-        {
-          duration: 2,
-          text: "Hi! I am Nikhil Anand!",
-          ease: "none",
-        },
-        "<"
-      )
-
-      .to(cursorRef.current, {
-        duration: 0.2,
-        opacity: 0,
-        ease: "power1.out",
-      })
-      .to(subtextRef.current, {
-        duration: 5,
-        scrambleText: {
-          text: "A CS Grad and a Full Stack Web Developer",
-          chars: SCRAMBLE_CHARS,
-          revealDelay: 0.8,
-          speed: 0.3,
+    const gsapContext = gsap.context(() => {
+      const timeline = gsap.timeline({
+        onComplete: () => {
+          setShowScrollDownHint(true);
         },
       });
+      timeline
+        .to(cursorRef.current, {
+          duration: 0.5,
+          opacity: 0,
+          repeat: 5,
+          yoyo: true,
+          ease: "power1.inOut",
+        })
+        .to(
+          titleRef.current,
+          {
+            duration: 2,
+            text: "Hi! I am Nikhil Anand!",
+            ease: "none",
+          },
+          "<"
+        )
+
+        .to(cursorRef.current, {
+          duration: 0.2,
+          opacity: 0,
+          ease: "power1.out",
+        })
+        .to(subtextRef.current, {
+          duration: 5,
+          scrambleText: {
+            text: "A CS Grad and a Full Stack Web Developer",
+            chars: SCRAMBLE_CHARS,
+            revealDelay: 0.8,
+            speed: 0.3,
+          },
+        });
+    });
 
     return () => {
-      timeline.kill();
+      gsapContext.revert();
     };
   }, []);
 
@@ -93,17 +101,26 @@ export default function Landing() {
             </a>
           </div>
 
-          <div className={`md:flex items-center gap-8 text-lg transition duration-500 ${styles.nav_text}`}>
-            <Link href="/" className="hover:text-cyan-300 transition">
+          <div className={`md:flex items-center gap-8 text-md transition duration-500 ${styles.nav_text}`}>
+            <Link href="/" className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out">
               {"// Skills"}
             </Link>
-            <Link href="/products" className="hover:text-cyan-300 transition">
+            <Link
+              href="/products"
+              className="hover:text-cyan-300 hover:text-xl transition-all duration-300 ease-in-out"
+            >
               {"// Education"}
             </Link>
-            <Link href="/stories" className="hover:text-cyan-300 transition">
+            <Link
+              href="/stories"
+              className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
+            >
               {"// Work Exp"}
             </Link>
-            <Link href="/pricing" className="hover:text-cyan-300 transition">
+            <Link
+              href="/pricing"
+              className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
+            >
               {"// Contact Me"}
             </Link>
           </div>
@@ -136,10 +153,10 @@ export default function Landing() {
           id="mobile-navLinks"
           className="fixed inset-0 z-100 bg-black/60 backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 -translate-x-full"
         >
-          <a href="#products">Products</a>
-          <a href="#resources">Resources</a>
-          <a href="#stories">Stories</a>
-          <a href="#pricing">Pricing</a>
+          <a href="#products">Skills</a>
+          <a href="#resources">Education</a>
+          <a href="#stories">Work Exp</a>
+          <a href="#pricing">Contact Me</a>
           <button
             id="close-menu"
             className="active:ring-3 active:ring-white aspect-square size-10 p-1 items-center justify-center bg-slate-100 hover:bg-slate-200 transition text-black rounded-md flex"
@@ -171,7 +188,7 @@ export default function Landing() {
         <p className={`text-center text-2xl max-w-2xl mt-2 ${styles.subtitle_text}`}>
           <span ref={subtextRef}></span>
         </p>
-        <div className="flex items-center gap-4 mt-8">
+        {/* <div className="flex items-center gap-4 mt-8">
           <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95 rounded-lg px-7 h-11">
             Get started
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -187,12 +204,24 @@ export default function Landing() {
           <button className="border border-slate-400 active:scale-95 hover:bg-white/10 transition rounded-lg px-8 h-11">
             Book a demo
           </button>
-        </div>
+        </div> */}
         <img
           src="/hero-section-showcase.png"
           className="w-full rounded-[15px] max-w-4xl mt-16"
           alt="hero section showcase"
         />
+        {showScrollDownHint && (
+          <a href="#Skills">
+            <DotLottieReact
+              src="/lottie/scroll_down_final.lottie"
+              loop
+              speed={0.75}
+              autoplay
+              className="w-auto h-18 mt-16 animate-fadeIn"
+              themeData={JSON.stringify({ primary: "#323936ff", secondary: "#8b1818ff" })}
+            />
+          </a>
+        )}
       </section>
     </>
   );
