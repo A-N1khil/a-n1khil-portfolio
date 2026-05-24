@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { useEffect, useRef, useState } from "react";
-import styles from "./landing.module.css";
+import styles from "./landing.module.scss";
 import Link from "next/link";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 

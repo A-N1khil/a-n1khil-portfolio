@@ -1,16 +1,12 @@
 @import "tailwindcss";
-
-/*:root {*/
-/*  --background: #ffffff;*/
-/*  --foreground: #171717;*/
-/*}*/
+@import "cursor.scss";
 
 @theme {
-    --color-primary: #8b5cf6;
-    --color-primary-hover: #7c3aed;
-    --color-secondary: #ec4899;
-    --color-dark-bg: #0f172a;
-    --color-dark-card: #1e293b;
+  --color-primary: #8b5cf6;
+  --color-primary-hover: #7c3aed;
+  --color-secondary: #ec4899;
+  --color-dark-bg: #0f172a;
+  --color-dark-card: #1e293b;
 }
 
 @media (prefers-color-scheme: dark) {
