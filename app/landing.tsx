@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./landing.module.scss";
 import Link from "next/link";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import MouseFollower from "mouse-follower";
 
 gsap.registerPlugin(TextPlugin, ScrambleTextPlugin);
 
