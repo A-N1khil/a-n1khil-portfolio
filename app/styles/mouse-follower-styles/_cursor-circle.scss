@@ -1,0 +1,25 @@
+.glass-cursor {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  background: var(--color-secondary);
+
+  border: 1px solid var(--color-secondary);
+
+  box-shadow:
+          0 4px 30px rgba(0, 0, 0, 0.1),
+          inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
+  transition:
+          width 0.3s ease,
+          height 0.3s ease,
+          background 0.3s ease;
+
+  margin-left: -10px;
+  margin-top: -8px;
+}
+
+.glass-cursor .mf-cursor-inner {
+  display: none;
+}

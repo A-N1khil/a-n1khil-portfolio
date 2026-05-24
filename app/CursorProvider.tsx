@@ -10,11 +10,11 @@ export default function MouseFollowerClient() {
 
         const cursor = new MouseFollower({
             speed: 0.55,
-            skewing: 1,
             stateDetection: {
                 "-pointer": "a,button",
                 "-hidden": "input,textarea,iframe",
-            }
+            },
+            className: "mf-cursor glass-cursor",
         });
 
         return () => cursor.destroy();
