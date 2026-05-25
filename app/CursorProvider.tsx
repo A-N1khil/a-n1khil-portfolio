@@ -14,7 +14,7 @@ export default function MouseFollowerClient() {
                 "-pointer": "a,button",
                 "-hidden": "input,textarea,iframe",
             },
-            className: "mf-cursor glass-cursor",
+            className: "mf-cursor cursor-circle",
         });
 
         return () => cursor.destroy();
