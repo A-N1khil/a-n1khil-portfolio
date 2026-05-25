@@ -4,6 +4,7 @@ import { fontVariables } from "@/app/fonts";
 import MouseFollower from "mouse-follower";
 import gsap from "gsap";
 import CursorProvider from "@/app/CursorProvider";
+import React from "react";
 
 MouseFollower.registerGSAP(gsap);
 

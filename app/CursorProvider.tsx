@@ -31,8 +31,9 @@ export default function CursorProvider({ children }: { children: ReactNode }) {
 
         cursorRef.current = new MouseFollower({
             className: "mf-cursor cursor-circle",
-            speed: 0.45,
-            ease: "expo.out",
+            speed: 0.55,
+            ease: "sine.inOut",
+            skewing: 5
         });
 
         return () => {
