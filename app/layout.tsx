@@ -3,7 +3,7 @@ import "./globals.scss";
 import { fontVariables } from "@/app/fonts";
 import MouseFollower from "mouse-follower";
 import gsap from "gsap";
-import MouseFollowerClient from "@/app/CursorProvider";
+import CursorProvider from "@/app/CursorProvider";
 
 MouseFollower.registerGSAP(gsap);
 
@@ -20,8 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${fontVariables} antialiased dark`}>
-      <MouseFollowerClient />
-      {children}
+      <CursorProvider>{children}</CursorProvider>
       </body>
     </html>
   );
