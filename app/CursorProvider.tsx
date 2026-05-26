@@ -29,7 +29,7 @@ export default function CursorProvider({ children }: { children: ReactNode }) {
         MouseFollower.registerGSAP(gsap);
 
         cursorRef.current = new MouseFollower({
-            className: "mf-cursor cursor-hollow",
+            className: "mf-cursor cursor-circle",
             speed: 0.45,
             ease: "expo.out",
             skewing: 2

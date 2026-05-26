@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./landing.module.scss";
 import Link from "next/link";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import MouseFollower from "mouse-follower";
+import { useCursor } from "./CursorProvider";
 
 gsap.registerPlugin(TextPlugin, ScrambleTextPlugin);
 
@@ -16,6 +16,7 @@ export default function Landing() {
   const titleRef = useRef<HTMLSpanElement>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
+  const { addClass, removeClass } = useCursor();
 
   const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#________";
 
@@ -69,7 +70,17 @@ export default function Landing() {
     };
   }, []);
 
-  return (
+  function onMouseEnterLink() {
+    addClass("cursor-hollow");
+    removeClass("cursor-circle");
+  }
+
+  function onMouseLeaveLink() {
+    addClass("cursor-circle");
+    removeClass("cursor-hollow");
+  }
+
+    return (
     <>
       <section className="flex flex-col items-center text-white text-sm">
         <svg
@@ -103,24 +114,32 @@ export default function Landing() {
           </div>
 
           <div className={`md:flex items-center gap-8 text-md transition duration-500 ${styles.nav_text}`}>
-            <Link href="/" className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out">
+            <Link href="/" className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
+                  onMouseEnter={onMouseEnterLink}
+                  onMouseLeave={onMouseLeaveLink}>
               {"// Skills"}
             </Link>
             <Link
               href="/products"
               className="hover:text-cyan-300 hover:text-xl transition-all duration-300 ease-in-out"
+              onMouseEnter={onMouseEnterLink}
+              onMouseLeave={onMouseLeaveLink}
             >
               {"// Education"}
             </Link>
             <Link
               href="/stories"
               className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
+              onMouseEnter={onMouseEnterLink}
+              onMouseLeave={onMouseLeaveLink}
             >
               {"// Work Exp"}
             </Link>
             <Link
               href="/pricing"
               className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
+              onMouseEnter={onMouseEnterLink}
+              onMouseLeave={onMouseLeaveLink}
             >
               {"// Contact Me"}
             </Link>
