@@ -36,17 +36,17 @@ export default function Landing() {
                     duration: 0.5, opacity: 0, repeat: 5, yoyo: true, ease: "power1.inOut",
                 })
                 .to(titleRef.current, {
-                    duration: 2, text: "Hi! I am Nikhil Anand!", ease: "none",
+                    duration: 0.8, text: "Hi! I am Nikhil Anand!", ease: "none",
                 }, "<")
 
                 .to(cursorRef.current, {
                     duration: 0.2, opacity: 0, ease: "power1.out",
                 })
                 .to(subtextRef.current, {
-                    duration: 5, scrambleText: {
+                    duration: 1.8, scrambleText: {
                         text: "A CS Grad and a Full Stack Web Developer",
                         chars: SCRAMBLE_CHARS,
-                        revealDelay: 0.8,
+                        revealDelay: 0.2,
                         speed: 0.3,
                     },
                 });
