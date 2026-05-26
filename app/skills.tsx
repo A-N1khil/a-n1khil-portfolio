@@ -3,8 +3,9 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(Draggable);
+gsap.registerPlugin(Draggable, ScrollTrigger);
 
 const skills = [
     {
@@ -63,18 +64,34 @@ export default function Skills() {
                         opacity: abs === 0 ? 1 : abs === 1 ? 0.65 : 0.3,
                         // rotate: abs === 0 ? 0 : diff < 0 ? -5 : 5,
                         zIndex: 20 - abs,
-                        duration: 0.45,
+                        duration: 1.2,
+                        delay: abs * 0.08,
                         ease: "power3.out",
                     });
                 });
             }
 
-            render();
+            gsap.set(cards, {
+                x: 0,
+                scale: 0.4,
+                opacity: 0,
+                rotate: 0
+            });
+
+            ScrollTrigger.create({
+                trigger: wrapper,
+                start: "top 75%",
+                once: true,
+                onEnter: () => {
+                    render();
+                }
+            });
 
             Draggable.create(proxy, {
                 type: "x",
                 trigger: wrapper,
                 inertia: true,
+                throwResistance: 1200,
                 onDrag() {
                     current = wrapIndex(Math.round(-this.x / spacing));
                     render();
@@ -113,7 +130,7 @@ export default function Skills() {
 
             <div
                 ref={wrapperRef}
-                className="relative mx-auto h-[32rem] w-full max-w-6xl overflow-hidden"
+                className="relative mx-auto h-[32rem] w-full max-w-6xl"
             >
                 <div className="absolute left-1/2 top-1/2">
                     {skills.map((skill, index) => (
