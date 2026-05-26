@@ -208,23 +208,6 @@ export default function Landing() {
         <p className={`text-center text-2xl max-w-2xl mt-2 ${styles.subtitle_text}`}>
           <span ref={subtextRef}></span>
         </p>
-        {/* <div className="flex items-center gap-4 mt-8">
-          <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95 rounded-lg px-7 h-11">
-            Get started
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M4.166 10h11.667m0 0L9.999 4.165m5.834 5.833-5.834 5.834"
-                stroke="#fff"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          <button className="border border-slate-400 active:scale-95 hover:bg-white/10 transition rounded-lg px-8 h-11">
-            Book a demo
-          </button>
-        </div> */}
         <img
           src="/hero-section-showcase.png"
           className="w-full rounded-[15px] max-w-4xl mt-16"
