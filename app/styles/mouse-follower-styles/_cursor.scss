@@ -1,0 +1,74 @@
+// A solid circle
+.cursor-circle {
+  width: 30px;
+  height: 30px;
+
+  margin-left: -12px;
+  margin-top: -8px;
+
+  border-radius: 50%;
+
+  background: var(--color-secondary);
+
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+
+  border: 1px solid var(--color-secondary);
+
+  box-shadow:
+          0 4px 30px rgba(0, 0, 0, 0.1),
+          inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
+  overflow: hidden;
+}
+
+.cursor-circle .mf-cursor-inner {
+  width: 0 !important;
+  height: 0 !important;
+
+  opacity: 0 !important;
+
+  background: transparent !important;
+
+  border: none !important;
+
+  transform: scale(0) !important;
+}
+
+
+// When the cursor comes over a link, switch to large hollow circle to not interrupt the text
+.cursor-hollow {
+  width: 56px;
+  height: 56px;
+
+  margin-left: -24px;
+  margin-top: -20px;
+
+  border-radius: 50%;
+
+  background: transparent !important;
+
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+
+  border: 1px solid var(--color-secondary);
+
+  box-shadow:
+          0 4px 30px rgba(0, 0, 0, 0.1),
+          inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
+  overflow: hidden;
+}
+
+.cursor-hollow .mf-cursor-inner {
+  width: 0 !important;
+  height: 0 !important;
+
+  opacity: 0 !important;
+
+  background: transparent !important;
+
+  border: none !important;
+
+  transform: scale(0) !important;
+}

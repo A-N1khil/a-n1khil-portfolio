@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./globals.scss";
 import { fontVariables } from "@/app/fonts";
-
+import CursorProvider from "@/app/CursorProvider";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,10 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${fontVariables} antialiased dark`}
-      >
-        {children}
+      <body className={`${fontVariables} antialiased dark`}>
+      <CursorProvider>{children}</CursorProvider>
       </body>
     </html>
   );
