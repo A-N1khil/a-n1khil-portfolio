@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.scss";
 import { fontVariables } from "@/app/fonts";
-import MouseFollower from "mouse-follower";
-import gsap from "gsap";
 import CursorProvider from "@/app/CursorProvider";
 import React from "react";
-
-MouseFollower.registerGSAP(gsap);
 
 export const metadata: Metadata = {
   title: "Create Next App",
