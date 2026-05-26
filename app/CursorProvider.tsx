@@ -8,7 +8,6 @@ import gsap from "gsap";
 type CursorContextType = {
     addClass: (className: string) => void,
     removeClass: (className: string) => void,
-    toggleClass: (className: string) => void,
 };
 
 const CursorContext: Context<CursorContextType | null> = createContext<CursorContextType | null>(null);
@@ -30,10 +29,10 @@ export default function CursorProvider({ children }: { children: ReactNode }) {
         MouseFollower.registerGSAP(gsap);
 
         cursorRef.current = new MouseFollower({
-            className: "mf-cursor cursor-circle",
-            speed: 0.55,
-            ease: "sine.inOut",
-            skewing: 5
+            className: "mf-cursor cursor-hollow",
+            speed: 0.45,
+            ease: "expo.out",
+            skewing: 2
         });
 
         return () => {
@@ -49,10 +48,6 @@ export default function CursorProvider({ children }: { children: ReactNode }) {
 
         removeClass: (className: string) => {
             cursorRef.current?.el?.classList.remove(className);
-        },
-
-        toggleClass: (className: string) => {
-            cursorRef.current?.el?.classList.toggle(className);
         }
     };
 
