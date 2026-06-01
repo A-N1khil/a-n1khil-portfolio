@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useCursor } from "@/app/CursorProvider";
 
 gsap.registerPlugin(Draggable, ScrollTrigger);
 
@@ -34,6 +35,7 @@ export default function Skills() {
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const cardsRef = useRef<HTMLDivElement[]>([]);
     const proxyRef = useRef<HTMLDivElement | null>(null);
+    const { hollowCursor, solidCursor } = useCursor();
 
     useLayoutEffect(() => {
         const wrapper = wrapperRef.current;
@@ -123,7 +125,7 @@ export default function Skills() {
     return (
         <section id="skills" className="relative w-full overflow-hidden py-24">
             <div className="mb-10 px-8 text-center">
-                <p className="text-5xl font-semibold text-[var(--foreground)]">
+                <p className="text-5xl font-semibold text-[var(--foreground)]" onMouseEnter={ hollowCursor } onMouseLeave={ solidCursor }>
                     Skills
                 </p>
             </div>

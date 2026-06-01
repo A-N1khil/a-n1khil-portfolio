@@ -16,7 +16,7 @@ export default function Landing() {
     const titleRef = useRef<HTMLSpanElement>(null);
     const cursorRef = useRef<HTMLSpanElement>(null);
     const subtextRef = useRef<HTMLParagraphElement>(null);
-    const { addClass, removeClass } = useCursor();
+    const { hollowCursor, solidCursor } = useCursor();
 
     const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#________";
 
@@ -57,16 +57,6 @@ export default function Landing() {
         };
     }, []);
 
-    function onMouseEnterLink() {
-        addClass("cursor-hollow");
-        removeClass("cursor-circle");
-    }
-
-    function onMouseLeaveLink() {
-        addClass("cursor-circle");
-        removeClass("cursor-hollow");
-    }
-
     return (<>
         <section className="flex flex-col items-center text-white text-sm">
             <svg
@@ -102,33 +92,33 @@ export default function Landing() {
 
                 <div
                     className={ `md:flex items-center gap-8 text-md transition duration-500 ${ styles.nav_text }` }>
-                    <Link href="/"
+                    <Link href="#skills"
                           className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
-                          onMouseEnter={ onMouseEnterLink }
-                          onMouseLeave={ onMouseLeaveLink }>
+                          onMouseEnter={ hollowCursor }
+                          onMouseLeave={ solidCursor }>
                         { "// Skills" }
                     </Link>
                     <Link
                         href="/products"
                         className="hover:text-cyan-300 hover:text-xl transition-all duration-300 ease-in-out"
-                        onMouseEnter={ onMouseEnterLink }
-                        onMouseLeave={ onMouseLeaveLink }
+                        onMouseEnter={ hollowCursor }
+                        onMouseLeave={ solidCursor }
                     >
                         { "// Education" }
                     </Link>
                     <Link
                         href="/stories"
                         className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
-                        onMouseEnter={ onMouseEnterLink }
-                        onMouseLeave={ onMouseLeaveLink }
+                        onMouseEnter={ hollowCursor }
+                        onMouseLeave={ solidCursor }
                     >
                         { "// Work Exp" }
                     </Link>
                     <Link
                         href="/pricing"
                         className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
-                        onMouseEnter={ onMouseEnterLink }
-                        onMouseLeave={ onMouseLeaveLink }
+                        onMouseEnter={ hollowCursor }
+                        onMouseLeave={ solidCursor }
                     >
                         { "// Contact Me" }
                     </Link>

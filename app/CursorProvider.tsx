@@ -8,6 +8,8 @@ import gsap from "gsap";
 type CursorContextType = {
     addClass: (className: string) => void,
     removeClass: (className: string) => void,
+    hollowCursor: () => void,
+    solidCursor: () => void,
 };
 
 const CursorContext: Context<CursorContextType | null> = createContext<CursorContextType | null>(null);
@@ -29,10 +31,7 @@ export default function CursorProvider({ children }: { children: ReactNode }) {
         MouseFollower.registerGSAP(gsap);
 
         cursorRef.current = new MouseFollower({
-            className: "mf-cursor cursor-circle",
-            speed: 0.45,
-            ease: "expo.out",
-            skewing: 2
+            className: "mf-cursor cursor-circle", speed: 0.45, ease: "expo.out", skewing: 2
         });
 
         return () => {
@@ -41,19 +40,29 @@ export default function CursorProvider({ children }: { children: ReactNode }) {
         };
     }, []);
 
-    const value: CursorContextType = {
-        addClass: (className: string) => {
-            cursorRef.current?.el?.classList.add(className);
-        },
-
-        removeClass: (className: string) => {
-            cursorRef.current?.el?.classList.remove(className);
-        }
+    const addClass = (className: string) => {
+        cursorRef.current?.el?.classList.add(className);
     };
 
-    return (
-        <CursorContext.Provider value={value}>
-            {children}
-        </CursorContext.Provider>
-    );
+    const removeClass = (className: string) => {
+        cursorRef.current?.el?.classList.remove(className);
+    };
+
+    const hollowCursor = () => {
+        addClass("cursor-hollow");
+        removeClass("cursor-circle");
+    };
+
+    const solidCursor = () => {
+        addClass("cursor-circle");
+        removeClass("cursor-hollow");
+    };
+
+    const value: CursorContextType = {
+        addClass, removeClass, hollowCursor, solidCursor
+    };
+
+    return (<CursorContext.Provider value={ value }>
+            { children }
+        </CursorContext.Provider>);
 }
