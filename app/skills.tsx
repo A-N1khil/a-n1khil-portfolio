@@ -17,6 +17,7 @@ type SkillRecord = {
 };
 
 export default function Skills() {
+  const titleRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const proxyRef = useRef<HTMLDivElement | null>(null);
@@ -97,12 +98,27 @@ export default function Skills() {
         rotate: 0,
       });
 
+      gsap.set(titleRef.current, {
+        opacity: 0,
+        y: 80,
+      });
+
       ScrollTrigger.create({
         trigger: wrapper,
-        start: "top 75%",
+        start: "top 80%",
         once: true,
         onEnter: () => {
-          render();
+          gsap
+            .timeline()
+            .to(titleRef.current, {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              ease: "power3.out",
+            })
+            .add(() => {
+              render();
+            }, "-=0.35");
         },
       });
 
@@ -141,7 +157,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="relative w-full overflow-hidden py-24">
-      <div className="mb-10 px-8 text-center">
+      <div ref={titleRef} className="mb-10 px-8 text-center">
         <p
           className="text-5xl font-semibold text-[var(--foreground)]"
           onMouseEnter={hollowCursor}
@@ -163,26 +179,35 @@ export default function Skills() {
                     cardsRef.current[index] = el;
                   }
                 }}
-                className="absolute left-0 top-0 flex h-[24rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 flex-col justify-between rounded-3xl border border-[var(--color-curvature)] bg-white/3 p-8 backdrop-blur-md"
+                className="absolute left-0 top-0 flex h-[24rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 flex-col justify-between rounded-3xl border border-[var(--color-curvature)] bg-white/3 p-8 backdrop-blur-md hover:border-[var(--color-secondary)]"
               >
                 {/* Grid for Icon and Title */}
-                <div className="grid grid-cols-5 items-center">
+                <div className="grid grid-cols-7 items-center">
                   {/* Icon */}
                   <div className="flex justify-center">
-                    <Icon size={24} strokeWidth={1.5} className="mb-2" />
+                    <Icon size={24} strokeWidth={1.5} />
                   </div>
                   {/* Title */}
-                  <div className="col-span-4">
-                    <h3 className="mb-2 items-center leading-none text-3xl font-semibold text-[var(--foreground)]">
-                      <span className="relative inline-block">
-                        {skill.title}
-                        {/* <span className="absolute -left-0.5 -right-1 bottom-0.5 h-2 bg-[var(--color-secondary)] -z-10" /> */}
-                      </span>
+                  <div className="col-span-6">
+                    <h3 className="items-center leading-none text-2xl font-semibold text-[var(--foreground)]">
+                      <span className="relative inline-block">{skill.title}</span>
                     </h3>
                   </div>
                 </div>
 
-                <p className="text-lg leading-relaxed text-[var(--foreground)] opacity-70">{skill.content}</p>
+                <div className="flex flex-1 items-center">
+                  <div className="relative">
+                    <span className="text-zinc-500 font-mono text-md">&lt;h3&gt;</span>
+
+                    <div className="flex gap-6 mt-4">
+                      <div className="w-px bg-zinc-600" />
+
+                      <p className="font-mono text-lg leading-relaxed">{skill.content}</p>
+                    </div>
+
+                    <span className="block mt-4 text-zinc-500 font-mono text-md">&lt;/h3&gt;</span>
+                  </div>
+                </div>
               </article>
             );
           })}
