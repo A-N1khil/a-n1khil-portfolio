@@ -20,7 +20,7 @@ export default function Skills() {
   const titleRef = useRef<HTMLDivElement | null>(null);
   const subtitleRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const cardsRef = useRef<HTMLElement[]>([]);
   const proxyRef = useRef<HTMLDivElement | null>(null);
   const { hollowCursor, solidCursor } = useCursor();
 
@@ -46,7 +46,7 @@ export default function Skills() {
     {
       experimental: false,
       title: "Version Control",
-      content: "Git, Azure DevOps, Github",
+      content: "Git, Azure DevOps, GitHub",
       icon: GitGraph,
     },
     {
@@ -81,7 +81,9 @@ export default function Skills() {
           const abs = Math.abs(diff);
 
           gsap.to(card, {
+            // 300 is used here to keep some cards in the background while the rest stay in the center
             x: diff * 300,
+            overwrite: "auto",
             scale: abs === 0 ? 1 : abs === 1 ? 0.78 : 0.55,
             opacity: abs === 0 ? 1 : abs === 1 ? 0.65 : 0.3, // rotate: abs === 0 ? 0 : diff < 0 ? -5 : 5,
             zIndex: 20 - abs,
@@ -169,7 +171,7 @@ export default function Skills() {
     }, wrapper);
 
     return () => ctx.revert();
-  }, []);
+  }, [skills.length]);
 
   return (
     <section id="skills" className="relative w-full overflow-hidden py-24">

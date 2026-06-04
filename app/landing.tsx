@@ -104,7 +104,6 @@ export default function Landing() {
               <Image className="invert" src="/laptop.png" alt="Nikhil Anand" width={70} height={20} />
             </a>
           </div>
-
           <div className={`md:flex items-center gap-8 transition duration-500 ${styles.nav_text}`}>
             {navItems.map((item: string, index: number) => {
               return (
@@ -126,7 +125,6 @@ export default function Landing() {
               );
             })}
           </div>
-
           <div className="hidden md:block space-x-3">
             <button className="hover:bg-slate-300/20 transition px-6 py-2 border border-slate-400 rounded-md">
               Login
@@ -153,7 +151,7 @@ export default function Landing() {
         </nav>
         <div
           id="mobile-navLinks"
-          className="fixed inset-0 z-100 bg-black/60 backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 -translate-x-full"
+          className="fixed inset-0 z-[100] bg-black/60 backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 -translate-x-full"
         >
           {navItems.map((item: string, index: number) => {
             return (
@@ -189,7 +187,7 @@ export default function Landing() {
         </div>
 
         <div className="mt-32 min-h-[90px] flex items-center justify-center">
-          <h1 className="text-center text-4xl gap-2 leading-17 md:text-6xl md:leading-[70px] font-semibold max-w-4xl">
+          <h1 className="text-center text-4xl gap-2 leading-tight md:text-6xl md:leading-[70px] font-semibold max-w-4xl">
             <span className={`${styles.title_text}`} ref={titleRef}></span>
             <span className="inline-block ml-1" ref={cursorRef}>
               |
@@ -214,9 +212,9 @@ export default function Landing() {
           />
         </div>
 
-        <div className="h-18 mt-16">
+        <div className="h-[4.5rem] mt-16">
           {showScrollDownHint && (
-            <a href="#Skills">
+            <a href="#skills">
               <DotLottieReact
                 src="/lottie/scroll_down_final.lottie"
                 loop
