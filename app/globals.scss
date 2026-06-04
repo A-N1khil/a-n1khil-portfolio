@@ -2,12 +2,22 @@
 @import "tailwindcss";
 @import "cursor.scss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
   --color-primary: #8b5cf6;
   --color-primary-hover: #7c3aed;
   --color-secondary: #ec4899;
   --color-dark-bg: #0f172a;
   --color-dark-card: #1e293b;
+  --color-curvature: #372aac
+}
+
+:root {
+  --background: var(--color-dark-bg);
+  --foreground: #ededed;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,5 +30,5 @@
 body {
   background: var(--color-dark-bg);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
 }

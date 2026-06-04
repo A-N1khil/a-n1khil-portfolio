@@ -16,7 +16,9 @@ export default function Landing() {
   const titleRef = useRef<HTMLSpanElement>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
-  const { addClass, removeClass } = useCursor();
+  const { hollowCursor, solidCursor } = useCursor();
+
+  const navItems: string[] = ["Skills", "Education", "Work Exp", "Projects", "Contact Me"];
 
   const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#________";
 
@@ -33,7 +35,7 @@ export default function Landing() {
       });
       timeline
         .to(cursorRef.current, {
-          duration: 0.5,
+          duration: 0.25,
           opacity: 0,
           repeat: 5,
           yoyo: true,
@@ -42,7 +44,7 @@ export default function Landing() {
         .to(
           titleRef.current,
           {
-            duration: 2,
+            duration: 0.8,
             text: "Hi! I am Nikhil Anand!",
             ease: "none",
           },
@@ -55,11 +57,11 @@ export default function Landing() {
           ease: "power1.out",
         })
         .to(subtextRef.current, {
-          duration: 5,
+          duration: 1.8,
           scrambleText: {
             text: "A CS Grad and a Full Stack Web Developer",
             chars: SCRAMBLE_CHARS,
-            revealDelay: 0.8,
+            revealDelay: 0.2,
             speed: 0.3,
           },
         });
@@ -70,17 +72,7 @@ export default function Landing() {
     };
   }, []);
 
-  function onMouseEnterLink() {
-    addClass("cursor-hollow");
-    removeClass("cursor-circle");
-  }
-
-  function onMouseLeaveLink() {
-    addClass("cursor-circle");
-    removeClass("cursor-hollow");
-  }
-
-    return (
+  return (
     <>
       <section className="flex flex-col items-center text-white text-sm">
         <svg
@@ -112,39 +104,27 @@ export default function Landing() {
               <Image className="invert" src="/laptop.png" alt="Nikhil Anand" width={70} height={20} />
             </a>
           </div>
+          <div className={`md:flex items-center gap-8 transition duration-500 ${styles.nav_text}`}>
+            {navItems.map((item: string, index: number) => {
+              return (
+                <div key={index} className="relative inline-block pt-5">
+                  <span className="absolute left-[95%] top-2 -translate-x-1/2 text-xs text-zinc-400">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-          <div className={`md:flex items-center gap-8 text-md transition duration-500 ${styles.nav_text}`}>
-            <Link href="/" className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
-                  onMouseEnter={onMouseEnterLink}
-                  onMouseLeave={onMouseLeaveLink}>
-              {"// Skills"}
-            </Link>
-            <Link
-              href="/products"
-              className="hover:text-cyan-300 hover:text-xl transition-all duration-300 ease-in-out"
-              onMouseEnter={onMouseEnterLink}
-              onMouseLeave={onMouseLeaveLink}
-            >
-              {"// Education"}
-            </Link>
-            <Link
-              href="/stories"
-              className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
-              onMouseEnter={onMouseEnterLink}
-              onMouseLeave={onMouseLeaveLink}
-            >
-              {"// Work Exp"}
-            </Link>
-            <Link
-              href="/pricing"
-              className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out"
-              onMouseEnter={onMouseEnterLink}
-              onMouseLeave={onMouseLeaveLink}
-            >
-              {"// Contact Me"}
-            </Link>
+                  <Link
+                    key={index}
+                    href={`#${item.toLowerCase().replace(/\s/g, "")}`}
+                    className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out text-base"
+                    onMouseEnter={hollowCursor}
+                    onMouseLeave={solidCursor}
+                  >
+                    {`// ${item}`}
+                  </Link>
+                </div>
+              );
+            })}
           </div>
-
           <div className="hidden md:block space-x-3">
             <button className="hover:bg-slate-300/20 transition px-6 py-2 border border-slate-400 rounded-md">
               Login
@@ -171,8 +151,15 @@ export default function Landing() {
         </nav>
         <div
           id="mobile-navLinks"
-          className="fixed inset-0 z-100 bg-black/60 backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 -translate-x-full"
+          className="fixed inset-0 z-[100] bg-black/60 backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 -translate-x-full"
         >
+          {navItems.map((item: string, index: number) => {
+            return (
+              <a href={`#${item.toLowerCase().replace(/\s/g, "")}`} key={index}>
+                {item}
+              </a>
+            );
+          })}
           <a href="#products">Skills</a>
           <a href="#resources">Education</a>
           <a href="#stories">Work Exp</a>
@@ -199,49 +186,49 @@ export default function Landing() {
           </button>
         </div>
 
-        <h1 className="text-center text-4xl mt-32 gap-2 leading-17 md:text-6xl md:leading-[70px] font-semibold max-w-4xl">
-          <span className={`${styles.title_text}`} ref={titleRef}></span>
-          <span className="inline-block ml-1" ref={cursorRef}>
-            |
-          </span>
-        </h1>
-        <p className={`text-center text-2xl max-w-2xl mt-2 ${styles.subtitle_text}`}>
-          <span ref={subtextRef}></span>
-        </p>
-        {/* <div className="flex items-center gap-4 mt-8">
-          <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95 rounded-lg px-7 h-11">
-            Get started
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M4.166 10h11.667m0 0L9.999 4.165m5.834 5.833-5.834 5.834"
-                stroke="#fff"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+        <div className="mt-32 min-h-[90px] flex items-center justify-center">
+          <h1 className="text-center text-4xl gap-2 leading-tight md:text-6xl md:leading-[70px] font-semibold max-w-4xl">
+            <span className={`${styles.title_text}`} ref={titleRef}></span>
+            <span className="inline-block ml-1" ref={cursorRef}>
+              |
+            </span>
+          </h1>
+        </div>
+
+        <div className="mt-2 min-h-[40px] flex items-center justify-center">
+          <p className={`text-center text-2xl max-w-2xl ${styles.subtitle_text}`}>
+            <span ref={subtextRef}></span>
+          </p>
+        </div>
+
+        <div className="mt-16 h-[280px] w-full flex items-center justify-center">
+          <Image
+            src="/hero-section-showcase.png"
+            className="w-full rounded-[15px] max-w-4xl"
+            alt="hero section showcase"
+            width={1440}
+            height={280}
+            priority
+          />
+        </div>
+
+        <div className="h-[4.5rem] mt-16">
+          {showScrollDownHint && (
+            <a href="#skills">
+              <DotLottieReact
+                src="/lottie/scroll_down_final.lottie"
+                loop
+                speed={0.75}
+                autoplay
+                className="w-auto h-18 animate-fadeIn"
+                themeData={JSON.stringify({
+                  primary: "#323936ff",
+                  secondary: "#8b1818ff",
+                })}
               />
-            </svg>
-          </button>
-          <button className="border border-slate-400 active:scale-95 hover:bg-white/10 transition rounded-lg px-8 h-11">
-            Book a demo
-          </button>
-        </div> */}
-        <img
-          src="/hero-section-showcase.png"
-          className="w-full rounded-[15px] max-w-4xl mt-16"
-          alt="hero section showcase"
-        />
-        {showScrollDownHint && (
-          <a href="#Skills">
-            <DotLottieReact
-              src="/lottie/scroll_down_final.lottie"
-              loop
-              speed={0.75}
-              autoplay
-              className="w-auto h-18 mt-16 animate-fadeIn"
-              themeData={JSON.stringify({ primary: "#323936ff", secondary: "#8b1818ff" })}
-            />
-          </a>
-        )}
+            </a>
+          )}
+        </div>
       </section>
     </>
   );
