@@ -175,7 +175,7 @@ export default function Skills() {
     <section id="skills" className="relative w-full overflow-hidden py-24">
       <div ref={titleRef} className="mb-10 px-8 text-center">
         <p
-          className="text-5xl font-semibold text-[var(--foreground)]"
+          className="text-5xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]"
           onMouseEnter={hollowCursor}
           onMouseLeave={solidCursor}
         >
@@ -219,7 +219,7 @@ export default function Skills() {
                   </div>
                   {/* Title */}
                   <div className="col-span-6">
-                    <h3 className="items-center leading-none text-2xl font-semibold text-[var(--foreground)]">
+                    <h3 className="items-center leading-none text-2xl font-semibold text-[var(--foreground)] [font-family:var(--font-inter)]">
                       <span className="relative inline-block">{skill.title}</span>
                     </h3>
                   </div>

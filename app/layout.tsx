@@ -15,9 +15,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${fontVariables} antialiased dark`}>
-      <CursorProvider>{children}</CursorProvider>
+    <html lang="en" className={`dark ${fontVariables}`}>
+      <body className={`antialiased dark ${fontVariables}`}>
+        <CursorProvider>{children}</CursorProvider>
       </body>
     </html>
   );
