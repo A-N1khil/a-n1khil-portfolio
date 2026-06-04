@@ -18,6 +18,7 @@ type SkillRecord = {
 
 export default function Skills() {
   const titleRef = useRef<HTMLDivElement | null>(null);
+  const subtitleRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const proxyRef = useRef<HTMLDivElement | null>(null);
@@ -103,6 +104,11 @@ export default function Skills() {
         y: 80,
       });
 
+      gsap.set(subtitleRef.current, {
+        opacity: 0,
+        y: 80,
+      });
+
       ScrollTrigger.create({
         trigger: wrapper,
         start: "top 80%",
@@ -116,6 +122,16 @@ export default function Skills() {
               duration: 0.8,
               ease: "power3.out",
             })
+            .to(
+              subtitleRef.current,
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: "power3.out",
+              },
+              "-=0.35"
+            )
             .add(() => {
               render();
             }, "-=0.35");
@@ -167,6 +183,20 @@ export default function Skills() {
         </p>
       </div>
 
+      <div
+        className="mb-10 px-8 text-center text-md italic text-zinc-500"
+        onMouseEnter={hollowCursor}
+        onMouseLeave={solidCursor}
+        ref={subtitleRef}
+      >
+        <p className="text-md italic text-zinc-500">
+          &quot;It is possible to fly without motors, but not without knowledge and skill.&quot;
+        </p>
+        <p>
+          - <span className="hover:underline hover:decoration-dotted">Wilbur Wright</span>
+        </p>
+      </div>
+
       <div ref={wrapperRef} className="relative mx-auto h-[32rem] w-full max-w-6xl">
         <div className="absolute left-1/2 top-1/2">
           {skills.map((skill: SkillRecord, index: number) => {
@@ -182,7 +212,7 @@ export default function Skills() {
                 className="absolute left-0 top-0 flex h-[24rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 flex-col justify-between rounded-3xl border border-[var(--color-curvature)] bg-white/3 p-8 backdrop-blur-md hover:border-[var(--color-secondary)]"
               >
                 {/* Grid for Icon and Title */}
-                <div className="grid grid-cols-7 items-center">
+                <div className="grid grid-cols-7 items-center" onMouseEnter={hollowCursor} onMouseLeave={solidCursor}>
                   {/* Icon */}
                   <div className="flex justify-center">
                     <Icon size={24} strokeWidth={1.5} />
@@ -195,7 +225,7 @@ export default function Skills() {
                   </div>
                 </div>
 
-                <div className="flex flex-1 items-center">
+                <div className="flex flex-1 items-center" onMouseEnter={hollowCursor} onMouseLeave={solidCursor}>
                   <div className="relative">
                     <span className="text-zinc-500 font-mono text-md">&lt;h3&gt;</span>
 
