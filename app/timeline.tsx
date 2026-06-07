@@ -35,6 +35,14 @@ export default function Timeline() {
       dateRange: "Jan 2021 - July 2024",
     },
     {
+      type: "work",
+      title: "Software Engineer Intern",
+      org: "Wonderlend Hubs Pvt. Ltd.",
+      description:
+        "Worked as a Software Engineer at BlackRock, contributing to the development of enterprise applications and gaining experience in software design and implementation.",
+      dateRange: "May 2019 - June 2019",
+    },
+    {
       type: "education",
       title: "Bachelor of Technology, Computer Science",
       org: "Vellore Institute of Technology",
@@ -97,7 +105,7 @@ export default function Timeline() {
 
   return (
     <div ref={timelineRef} className="relative mx-auto overflow-hidden py-10">
-      <div className="timeline-line absolute left-4 top-0 h-full w-[2px] origin-top bg-zinc-700 md:left-1/2 md:-translate-x-1/2" />
+      <div className="timeline-line absolute left-4 top-0 h-full w-[2px] origin-top bg-[var(--color-curvature)] md:left-1/2 md:-translate-x-1/2" />
 
       <div className="space-y-14">
         {timelineItems.map((item, index) => {
@@ -110,9 +118,9 @@ export default function Timeline() {
               onMouseEnter={hollowCursor}
               onMouseLeave={solidCursor}
             >
-              <div className="timeline-dot absolute left-4 top-6 z-10 h-4 w-4 -translate-x-1/2 rounded-full bg-[var(--foreground)] md:left-1/2 " />
+              <div className="timeline-dot absolute left-4 top-6 z-10 h-4 w-4 -translate-x-1/2 rounded-full bg-[var(--color-secondary)] md:left-1/2 " />
 
-              <div className="timeline-card ml-12 w-full rounded-xl border border-zinc-700/60 bg-[var(--background)] p-5 shadow-lg md:ml-0 md:w-[45%]">
+              <div className="timeline-card ml-12 w-full rounded-xl border border-[var(--color-curvature)] bg-[var(--background)] p-5 shadow-lg md:ml-0 md:w-[45%]">
                 <p className="text-xs uppercase tracking-[0.25em] text-cyan-300">{item.type}</p>
 
                 <p className="mt-3 text-sm text-zinc-500">{item.dateRange}</p>
