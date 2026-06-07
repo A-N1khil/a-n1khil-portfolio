@@ -96,7 +96,7 @@ export default function Timeline() {
   });
 
   return (
-    <div ref={timelineRef} className="relative w-max-screen py-10">
+    <div ref={timelineRef} className="relative mx-auto overflow-hidden py-10">
       <div className="timeline-line absolute left-4 top-0 h-full w-[2px] origin-top bg-zinc-700 md:left-1/2 md:-translate-x-1/2" />
 
       <div className="space-y-14">
@@ -110,7 +110,7 @@ export default function Timeline() {
               onMouseEnter={hollowCursor}
               onMouseLeave={solidCursor}
             >
-              <div className="timeline-dot absolute left-4 top-6 z-10 h-4 w-4 -translate-x-1/2 rounded-full bg-[var(--foreground)] md:left-1/2" />
+              <div className="timeline-dot absolute left-4 top-6 z-10 h-4 w-4 -translate-x-1/2 rounded-full bg-[var(--foreground)] md:left-1/2 " />
 
               <div className="timeline-card ml-12 w-full rounded-xl border border-zinc-700/60 bg-[var(--background)] p-5 shadow-lg md:ml-0 md:w-[45%]">
                 <p className="text-xs uppercase tracking-[0.25em] text-cyan-300">{item.type}</p>

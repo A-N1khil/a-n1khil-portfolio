@@ -67,7 +67,7 @@ export default function Experience() {
   return (
     <>
       <section id="experience" className="min-h-screen px-8 py-24">
-        <div className="grid min-h-[calc(100vh-12rem)] grid-cols-1 items-center gap-16 md:grid-cols-[35%_65%]">
+        <div className="grid min-h-[calc(100vh-12rem)] grid-cols-1 items-center gap-8 md:grid-cols-[35fr_65fr]">
           {/* Left Split */}
           <div className="h-fit">
             {/* Experience Title */}
@@ -96,7 +96,7 @@ export default function Experience() {
           </div>
 
           {/* Right Split */}
-          <div className="flex min-h-[50vh] items-center">
+          <div className="flex min-h-[50vh] items-center justify-center overflow-hidden">
             <Timeline />
           </div>
         </div>
