@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCursor } from "@/app/CursorProvider";
+import Timeline from "./timeline";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,17 +88,17 @@ export default function Experience() {
               onMouseLeave={solidCursor}
               ref={experienceSubTitleRef}
             >
-              <p className="text-md italic text-zinc-500">
-                &quot;It is possible to fly without motors, but not without knowledge and skill.&quot;
-              </p>
+              <p className="text-md italic text-zinc-500">&quot;Experience is the teacher of all things.&quot;</p>
               <p>
-                - <span className="hover:underline hover:decoration-dotted">Wilbur Wright</span>
+                - <span className="hover:underline hover:decoration-dotted">Julius Ceaser</span>
               </p>
             </div>
           </div>
 
           {/* Right Split */}
-          <div className="flex min-h-[50vh] items-center">{/* Timeline goes here */}</div>
+          <div className="flex min-h-[50vh] items-center">
+            <Timeline />
+          </div>
         </div>
       </section>
     </>
