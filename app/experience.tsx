@@ -65,31 +65,39 @@ export default function Experience() {
 
   return (
     <>
-      <section id="experience" className="relative w-full overflow-hidden py-24">
-        {/* Experience Title */}
-        <div ref={experienceTitleRef} className="mb-10 px-8 text-center">
-          <p
-            className="text-5xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]"
-            onMouseEnter={hollowCursor}
-            onMouseLeave={solidCursor}
-          >
-            Experience
-          </p>
-        </div>
+      <section id="experience" className="min-h-screen px-8 py-24">
+        <div className="grid min-h-[calc(100vh-12rem)] grid-cols-1 items-center gap-16 md:grid-cols-[35%_65%]">
+          {/* Left Split */}
+          <div className="h-fit">
+            {/* Experience Title */}
+            <div ref={experienceTitleRef} className="mb-10 px-8 text-center">
+              <p
+                className="text-5xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]"
+                onMouseEnter={hollowCursor}
+                onMouseLeave={solidCursor}
+              >
+                Experience
+              </p>
+            </div>
 
-        {/* Experience Subtitle */}
-        <div
-          className="mb-10 px-8 text-center text-md italic text-zinc-500"
-          onMouseEnter={hollowCursor}
-          onMouseLeave={solidCursor}
-          ref={experienceSubTitleRef}
-        >
-          <p className="text-md italic text-zinc-500">
-            &quot;It is possible to fly without motors, but not without knowledge and skill.&quot;
-          </p>
-          <p>
-            - <span className="hover:underline hover:decoration-dotted">Wilbur Wright</span>
-          </p>
+            {/* Experience Subtitle */}
+            <div
+              className="mb-10 px-8 text-center text-md italic text-zinc-500"
+              onMouseEnter={hollowCursor}
+              onMouseLeave={solidCursor}
+              ref={experienceSubTitleRef}
+            >
+              <p className="text-md italic text-zinc-500">
+                &quot;It is possible to fly without motors, but not without knowledge and skill.&quot;
+              </p>
+              <p>
+                - <span className="hover:underline hover:decoration-dotted">Wilbur Wright</span>
+              </p>
+            </div>
+          </div>
+
+          {/* Right Split */}
+          <div className="flex min-h-[50vh] items-center">{/* Timeline goes here */}</div>
         </div>
       </section>
     </>
