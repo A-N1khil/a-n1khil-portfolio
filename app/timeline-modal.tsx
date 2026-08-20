@@ -124,7 +124,11 @@ export default function TimelineModal({ entry, origin, onClose }: TimelineModalP
         </h2>
         <p className="mt-2 text-base text-zinc-400">{entry.org}</p>
         <div className="my-7 h-px bg-[var(--color-curvature)]" />
-        <p className="text-base leading-7 text-zinc-300">{entry.description}</p>
+        <ul className="list-disc space-y-3 pl-5 text-base leading-7 text-zinc-300 marker:text-[var(--color-secondary)]">
+          {entry.longDescription.map((detail) => (
+            <li key={detail}>{detail}</li>
+          ))}
+        </ul>
       </div>
     </div>,
     document.body,
