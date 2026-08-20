@@ -43,3 +43,6 @@ next-env.d.ts
 # IDE Files
 .vscode/
 .idea/
+
+# Agents MD file
+AGENTS.md
