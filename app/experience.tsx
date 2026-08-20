@@ -1,106 +1,93 @@
 "use client";
 
-import { useLayoutEffect, useRef, type RefObject } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useCallback, useState } from "react";
 import { useCursor } from "@/app/CursorProvider";
-import Timeline from "./timeline";
-
-gsap.registerPlugin(ScrollTrigger);
+import Timeline, { type TimelineEntryType } from "./timeline";
 
 export default function Experience() {
   const { hollowCursor, solidCursor } = useCursor();
+  const [activeType, setActiveType] = useState<TimelineEntryType | null>(null);
+  const handleActiveTypeChange = useCallback((type: TimelineEntryType | null): void => {
+    setActiveType(type);
+  }, []);
 
-  // Wrapper over the timeline
-  // Also serves as the trigger for the scroll animation
-  const wrapperRef: RefObject<HTMLDivElement | null> = useRef<HTMLDivElement | null>(null);
-
-  // Ref for the experience title
-  const experienceTitleRef: RefObject<HTMLDivElement | null> = useRef<HTMLDivElement | null>(null);
-
-  // Ref for the experience subtitle
-  const experienceSubTitleRef: RefObject<HTMLDivElement | null> = useRef<HTMLDivElement | null>(null);
-
-  // Layout effect for animating the experience section title
-  useLayoutEffect(() => {
-    if (!experienceTitleRef.current) return;
-
-    const context = gsap.context(() => {
-      const wrapper: HTMLDivElement | null = wrapperRef.current;
-      if (!wrapper || !experienceTitleRef.current || !experienceSubTitleRef.current) return;
-
-      gsap.set(experienceTitleRef.current, {
-        opacity: 0,
-        y: 80,
-      });
-
-      ScrollTrigger.create({
-        trigger: wrapper,
-        start: "top 80%",
-        once: true,
-        onEnter: (): void => {
-          gsap
-            .timeline()
-            .to(experienceTitleRef.current, {
-              y: 0,
-              opacity: 1,
-              duration: 0.8,
-              ease: "power3.out",
-            })
-            .to(
-              experienceSubTitleRef.current,
-              {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                ease: "power3.out",
-              },
-              "-=0.35"
-            );
-        },
-      });
-    });
-
-    return (): void => context.revert();
-  });
+  const sectionCopyClasses = "sticky top-1/2 -translate-y-1/2 text-center transition-all duration-500";
 
   return (
-    <>
-      <section id="experience" className="min-h-screen px-8 py-24">
-        <div className="grid min-h-[calc(100vh-12rem)] grid-cols-1 items-center gap-8 md:grid-cols-[35fr_65fr]">
-          {/* Left Split */}
-          <div className="h-fit">
-            {/* Experience Title */}
-            <div ref={experienceTitleRef} className="mb-10 px-8 text-center">
-              <p
-                className="text-5xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]"
-                onMouseEnter={hollowCursor}
-                onMouseLeave={solidCursor}
-              >
-                Experience
-              </p>
-            </div>
-
-            {/* Experience Subtitle */}
-            <div
-              className="mb-10 px-8 text-center text-md italic text-zinc-500"
-              onMouseEnter={hollowCursor}
-              onMouseLeave={solidCursor}
-              ref={experienceSubTitleRef}
-            >
-              <p className="text-md italic text-zinc-500">&quot;Experience is the teacher of all things.&quot;</p>
-              <p>
-                - <span className="hover:underline hover:decoration-dotted">Julius Ceaser</span>
-              </p>
-            </div>
+    <section id="experience" className="min-h-screen px-6 py-24 md:px-8">
+      <div className="mb-10 text-center md:hidden">
+        <p
+          className="text-4xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]"
+          onMouseEnter={hollowCursor}
+          onMouseLeave={solidCursor}
+        >
+          {activeType === "work" ? "Experience" : activeType === "education" ? "Education" : "\u00a0"}
+        </p>
+        {activeType && (
+          <div className="mt-4 text-md italic text-zinc-500">
+            <p>
+              {activeType === "work"
+                ? '"Experience is the teacher of all things."'
+                : '"Intelligence plus character—that is the goal of true education."'}
+            </p>
+            <p>
+              - {activeType === "work" ? "Julius Caesar" : "Martin Luther King Jr."}
+            </p>
           </div>
+        )}
+      </div>
 
-          {/* Right Split */}
-          <div className="flex min-h-[50vh] items-center justify-center overflow-hidden">
-            <Timeline />
+      <div className="grid grid-cols-1 md:grid-cols-[5fr_20fr_minmax(0,50fr)_20fr_5fr]">
+        <div className="hidden md:block" aria-hidden="true" />
+
+        <div className="relative hidden h-full md:block">
+          <div
+            aria-hidden={activeType !== "work"}
+            className={`${sectionCopyClasses} ${
+              activeType === "work" ? "visible opacity-100" : "invisible -translate-x-4 opacity-0"
+            }`}
+            onMouseEnter={hollowCursor}
+            onMouseLeave={solidCursor}
+          >
+            <p className="text-4xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] lg:text-5xl">
+              Experience
+            </p>
+            <div className="mt-6 text-md italic text-zinc-500">
+              <p>&quot;Experience is the teacher of all things.&quot;</p>
+              <p>
+                - <span className="hover:underline hover:decoration-dotted">Julius Caesar</span>
+              </p>
+            </div>
           </div>
         </div>
-      </section>
-    </>
+
+        <div className="flex min-w-0 justify-center overflow-hidden">
+          <Timeline onActiveTypeChange={handleActiveTypeChange} />
+        </div>
+
+        <div className="relative hidden h-full md:block">
+          <div
+            aria-hidden={activeType !== "education"}
+            className={`${sectionCopyClasses} ${
+              activeType === "education" ? "visible opacity-100" : "invisible translate-x-4 opacity-0"
+            }`}
+            onMouseEnter={hollowCursor}
+            onMouseLeave={solidCursor}
+          >
+            <p className="text-4xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] lg:text-5xl">
+              Education
+            </p>
+            <div className="mx-auto mt-6 w-4/5 max-w-56 text-md italic text-zinc-500">
+              <p>&quot;Intelligence plus character—that is the goal of true education.&quot;</p>
+              <p>
+                - <span className="hover:underline hover:decoration-dotted">Martin Luther King Jr.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden md:block" aria-hidden="true" />
+      </div>
+    </section>
   );
 }
