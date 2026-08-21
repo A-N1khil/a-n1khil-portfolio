@@ -48,7 +48,7 @@ export default function Landing() {
             text: "Hi! I am Nikhil Anand!",
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(cursorRef.current, {
