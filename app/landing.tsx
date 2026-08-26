@@ -18,7 +18,7 @@ export default function Landing() {
   const subtextRef = useRef<HTMLParagraphElement>(null);
   const { hollowCursor, solidCursor } = useCursor();
 
-  const navItems: string[] = ["Skills", "Education", "Work Exp", "Projects", "Contact Me"];
+  const navItems: string[] = ["Skills", "About Me", "Education", "Work Exp", "Projects"];
 
   const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#________";
 
