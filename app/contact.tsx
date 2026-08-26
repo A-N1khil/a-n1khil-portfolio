@@ -8,7 +8,7 @@ export default function Contact() {
   return (
     <section
       id="contactme"
-      className="flex min-h-screen items-center justify-center px-6 py-28 text-center md:px-8 md:py-36"
+      className="relative flex min-h-screen items-center justify-center px-6 py-28 text-center md:px-8 md:py-36"
     >
       <div className="mx-auto flex max-w-3xl flex-col items-center">
         <p className="text-sm tracking-[0.18em] text-[var(--color-secondary)] [font-family:var(--font-monaco)] md:text-base">
@@ -36,6 +36,54 @@ export default function Contact() {
         >
           Say Hello
         </a>
+      </div>
+
+      <div onMouseEnter={hollowCursor} onMouseLeave={solidCursor}>
+        <p className="absolute bottom-20 left-1/2 w-full max-w-2xl -translate-x-1/2 px-6 text-center text-xs leading-5 text-zinc-400 [font-family:var(--font-geist-sans)] sm:bottom-22 sm:text-sm">
+          Designed in{" "}
+          <span className="emphasis-point">
+            <a target="_blank" rel="noopener noreferrer" href="https://www.figma.com/">
+              Figma
+            </a>
+          </span>
+          , coded in{" "}
+          <span className="emphasis-point">
+            <a target="_blank" rel="noopener noreferrer" href="https://code.visualstudio.com/">
+              Visual Studio Code
+            </a>
+          </span>
+          , and deployed with{" "}
+          <span className="emphasis-point">
+            <a target="_blank" rel="noopener noreferrer" href="https://vercel.com/">
+              Vercel
+            </a>
+          </span>{" "}
+          by yours truly.
+        </p>
+        <p className="absolute bottom-14 left-1/2 w-full max-w-xl -translate-x-1/2 px-6 text-center text-xs leading-5 text-zinc-400 [font-family:var(--font-geist-sans)] sm:bottom-16 sm:text-sm">
+          Built with{" "}
+          <span className="emphasis-point">
+            <a target="_blank" rel="noopener noreferrer" href="https://nextjs.org/">
+              Next.js
+            </a>
+          </span>
+          ,{" "}
+          <span className="emphasis-point">
+            <a target="_blank" rel="noopener noreferrer" href="https://tailwindcss.com/">
+              Tailwind CSS
+            </a>
+          </span>
+          , and animations powered by{" "}
+          <span className="emphasis-point">
+            <a target="_blank" rel="noopener noreferrer" href="https://gsap.com/">
+              GSAP
+            </a>
+          </span>
+          .
+        </p>
+        <p className="absolute bottom-6 left-1/2 w-full max-w-xl -translate-x-1/2 px-6 text-center text-xs leading-5 text-zinc-400 [font-family:var(--font-geist-sans)] sm:bottom-8 sm:text-sm">
+          Nikhil Anand &copy; {new Date().getFullYear()}
+        </p>
       </div>
     </section>
   );

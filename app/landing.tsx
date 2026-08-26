@@ -74,7 +74,7 @@ export default function Landing() {
 
   return (
     <>
-      <section className="flex flex-col items-center text-white text-sm">
+      <section id="hero" className="flex flex-col items-center text-white text-sm">
         <svg
           className="absolute -z-10 w-screen -mt-40 md:mt-0"
           width="1440"
