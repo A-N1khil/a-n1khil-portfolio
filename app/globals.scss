@@ -32,3 +32,46 @@ body {
   color: var(--foreground);
   font-family: Helvetica, sans-serif;
 }
+
+.emphasis-point {
+  position: relative;
+  display: inline-block;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-secondary) 0,
+    var(--color-secondary) 2px,
+    transparent 2px,
+    transparent 7px
+  );
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: auto 1px;
+  transition: color 250ms ease;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    border-bottom: 2px solid var(--color-secondary);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms ease;
+  }
+
+  &:hover {
+    color: var(--color-secondary);
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emphasis-point,
+  .emphasis-point::after {
+    transition: none;
+  }
+}

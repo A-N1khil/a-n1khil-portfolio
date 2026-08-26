@@ -1,4 +1,5 @@
 import Landing from "@/app/landing";
+import About from "@/app/about";
 import Skills from "@/app/skills";
 import Experience from "./experience";
 import Projects from "./Projects";
@@ -10,6 +11,7 @@ export default function Home() {
     <>
       <Landing />
       <ContactRail />
+      <About />
       <Skills />
       <Experience />
       <Projects />
