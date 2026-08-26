@@ -1,11 +1,11 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { type CSSProperties, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCursor } from "@/app/CursorProvider";
-import { BrainCircuit, CodeXml, Database, GitGraph, type LucideIcon, Server } from "lucide-react";
+import { CloudCog, CodeXml, Database, GitGraph, type LucideIcon, Server, FileBraces } from "lucide-react";
 
 gsap.registerPlugin(Draggable, ScrollTrigger);
 
@@ -14,6 +14,11 @@ type SkillRecord = {
   title: string;
   content: string;
   icon: LucideIcon;
+  accent: string;
+};
+
+type SkillCardStyle = CSSProperties & {
+  "--skill-accent": string;
 };
 
 export default function Skills() {
@@ -27,33 +32,45 @@ export default function Skills() {
   const skills: SkillRecord[] = [
     {
       experimental: false,
-      title: "Frontend",
-      content: "Angular, TypeScript, React, Next.js, Tailwind, GSAP",
-      icon: CodeXml,
+      title: "Languages",
+      content: "Python, Java, JavaScript, TypeScript, Javascript, SQL",
+      icon: FileBraces,
+      accent: "#48ec9a",
     },
     {
       experimental: false,
-      title: "Backend",
-      content: "Spring Boot, Java, Maven, Python, FastAPI",
-      icon: Server,
+      title: "Frontend",
+      content: "Angular, React, HTML5, CSS3, Tailwind CSS, Material UI, GSAP",
+      icon: CodeXml,
+      accent: "#ec4899",
     },
     {
       experimental: false,
       title: "Databases",
-      content: "Sybase ASE, SQL, MongoDB",
+      content: "PostgresSQL, MongoDB, Sybase ASE",
       icon: Database,
+      accent: "#22d3ee",
     },
     {
       experimental: false,
-      title: "Version Control",
-      content: "Git, Azure DevOps, GitHub",
+      title: "Tools",
+      content: "Git, Azure DevOps, GitHub, BitBucket, JUnit, Jest, Sonarqube, Maven",
       icon: GitGraph,
+      accent: "#a78bfa",
     },
     {
       experimental: true,
-      title: "Network Security",
-      content: "Metasploit, Nessus, Ettercap, Wireshark",
-      icon: BrainCircuit,
+      title: "Cloud",
+      content: "AWS, Docker, Kubernetes, Terraform",
+      icon: CloudCog,
+      accent: "#fb2c36",
+    },
+    {
+      experimental: false,
+      title: "Backend",
+      content: "Spring Boot, FastAPI, Node.js, REST APIs, Microservices",
+      icon: Server,
+      accent: "#8b5cf6",
     },
   ];
 
@@ -132,7 +149,7 @@ export default function Skills() {
                 duration: 0.8,
                 ease: "power3.out",
               },
-              "-=0.35"
+              "-=0.35",
             )
             .add(() => {
               render();
@@ -211,34 +228,56 @@ export default function Skills() {
                     cardsRef.current[index] = el;
                   }
                 }}
-                className="absolute left-0 top-0 flex h-[24rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 flex-col justify-between rounded-3xl border border-[var(--color-curvature)] bg-white/3 p-8 backdrop-blur-md hover:border-[var(--color-secondary)]"
+                style={{ "--skill-accent": skill.accent } as SkillCardStyle}
+                className="group absolute left-0 top-0 flex h-[25rem] w-[19rem] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-3xl border border-white/10 bg-[var(--background)] p-6 shadow-2xl shadow-black/30 backdrop-blur-md transition-[border-color] duration-300 hover:border-[var(--skill-accent)] sm:w-[20rem] sm:p-7"
               >
-                {/* Grid for Icon and Title */}
-                <div className="grid grid-cols-7 items-center" onMouseEnter={hollowCursor} onMouseLeave={solidCursor}>
-                  {/* Icon */}
-                  <div className="flex justify-center">
-                    <Icon size={24} strokeWidth={1.5} />
-                  </div>
-                  {/* Title */}
-                  <div className="col-span-6">
-                    <h3 className="items-center leading-none text-2xl font-semibold text-[var(--foreground)] [font-family:var(--font-inter)]">
-                      <span className="relative inline-block">{skill.title}</span>
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-15 transition-opacity duration-500 group-hover:opacity-25"
+                  style={{
+                    background: "radial-gradient(circle at 50% 42%, var(--skill-accent) 0%, transparent 48%)",
+                  }}
+                  aria-hidden="true"
+                />
+
+                <div
+                  className="relative flex items-start justify-between gap-4"
+                  onMouseEnter={hollowCursor}
+                  onMouseLeave={solidCursor}
+                >
+                  <div>
+                    <p className="font-mono text-[0.65rem] uppercase tracking-[0.28em] text-[var(--skill-accent)]">
+                      Core skill
+                    </p>
+                    <h3 className="mt-2 text-2xl font-semibold text-[var(--foreground)] [font-family:var(--font-inter)]">
+                      {skill.title}
                     </h3>
                   </div>
                 </div>
 
-                <div className="flex flex-1 items-center" onMouseEnter={hollowCursor} onMouseLeave={solidCursor}>
-                  <div className="relative">
-                    <span className="text-zinc-500 font-mono text-md">&lt;h3&gt;</span>
-
-                    <div className="flex gap-6 mt-4">
-                      <div className="w-px bg-zinc-600" />
-
-                      <p className="font-mono text-lg leading-relaxed">{skill.content}</p>
-                    </div>
-
-                    <span className="block mt-4 text-zinc-500 font-mono text-md">&lt;/h3&gt;</span>
+                <div
+                  className="relative flex flex-1 items-center justify-center"
+                  onMouseEnter={hollowCursor}
+                  onMouseLeave={solidCursor}
+                >
+                  <div className="relative flex h-36 w-36 items-center justify-center">
+                    <div
+                      className="absolute inset-0 rounded-[2.5rem] border border-[var(--skill-accent)] opacity-35 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-105"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="absolute inset-3 rounded-[2rem] border border-dashed border-[var(--skill-accent)] opacity-25 transition-transform duration-500 group-hover:-rotate-6"
+                      aria-hidden="true"
+                    />
+                    <Icon className="relative text-[var(--skill-accent)]" size={64} strokeWidth={1.25} />
                   </div>
+                </div>
+
+                <div className="relative border-t border-white/10 pt-5">
+                  <div className="mb-3 flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-[0.22em]">
+                    <span className="text-zinc-500">Toolkit</span>
+                    {skill.experimental && <span className="text-[var(--skill-accent)]">Exploring</span>}
+                  </div>
+                  <p className="font-mono text-sm leading-6 text-zinc-300">{skill.content}</p>
                 </div>
               </article>
             );

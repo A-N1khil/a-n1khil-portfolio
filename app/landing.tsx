@@ -18,7 +18,7 @@ export default function Landing() {
   const subtextRef = useRef<HTMLParagraphElement>(null);
   const { hollowCursor, solidCursor } = useCursor();
 
-  const navItems: string[] = ["Skills", "Education", "Work Exp", "Projects", "Contact Me"];
+  const navItems: string[] = ["About Me", "Skills", "Education", "Work Exp", "Projects"];
 
   const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#________";
 
@@ -48,7 +48,7 @@ export default function Landing() {
             text: "Hi! I am Nikhil Anand!",
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(cursorRef.current, {
@@ -74,7 +74,7 @@ export default function Landing() {
 
   return (
     <>
-      <section className="flex flex-col items-center text-white text-sm">
+      <section id="hero" className="flex flex-col items-center text-white text-sm">
         <svg
           className="absolute -z-10 w-screen -mt-40 md:mt-0"
           width="1440"
@@ -214,7 +214,7 @@ export default function Landing() {
 
         <div className="h-[4.5rem] mt-16">
           {showScrollDownHint && (
-            <a href="#skills">
+            <a href="#aboutme">
               <DotLottieReact
                 src="/lottie/scroll_down_final.lottie"
                 loop
