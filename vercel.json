@@ -4,6 +4,7 @@
     "deploymentEnabled": {
       "develop*": false,
       "deployment/vercel": true
-    }
+    },
+    "autoJobCancellation": true
   }
 }
