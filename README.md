@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nikhil Anand — Developer Portfolio
 
-## Getting Started
+A personal portfolio presenting my full-stack engineering experience, selected projects, and education through an interactive web experience.
 
-First, run the development server:
+**[Explore the live portfolio](https://a-nikhil.vercel.app)** · [GitHub](https://github.com/A-N1khil) · [Email me](mailto:nikhilanand1006@gmail.com)
+
+Hosted on **Vercel** at **[a-nikhil.vercel.app](https://a-nikhil.vercel.app)**.
+
+## About me
+
+I'm a full-stack software developer with over three years of professional experience and a Master of Science in Computer Science from the University of Massachusetts Amherst. My work spans Java and Spring Boot services, REST APIs, Angular and React interfaces, and production application modernization.
+
+At BlackRock, I delivered 30+ applications and features across 8+ internal teams, helped achieve 20–40% performance improvements, and improved SonarQube maintainability from C to A. My experience also includes leading five contract engineers, mentoring 12 engineers, and owning features from design through production support.
+
+I'm interested in full-stack and software engineering opportunities where I can combine backend engineering with thoughtful user experiences. **[Get in touch](mailto:nikhilanand1006@gmail.com)** to discuss a role or project.
+
+## Explore my work
+
+The portfolio brings together work experience, education, technical skills, and project details so you can quickly explore both my background and how I build.
+
+| Featured project | Focus | Technologies |
+| --- | --- | --- |
+| Scrumsphere | Agile project management, tasks, backlogs, and JWT-secured APIs | Next.js, TypeScript, Spring Boot, Java, MongoDB |
+| ScheduleCare | Healthcare appointment scheduling, location services, and two-factor authentication | Next.js, TypeScript, FastAPI, Python, MongoDB |
+| Portfolio Website | Custom interaction design, scroll-driven animation, and responsive presentation | Next.js, React, TypeScript, Tailwind CSS, GSAP |
+
+This repository contains the portfolio website; the other projects are showcased within it.
+
+## What this website demonstrates
+
+- **Custom interaction design:** an animated hero, Lottie details, a draggable skills card presentation, and a shared MouseFollower cursor with contextual hover states.
+- **Progressive detail:** project and timeline cards open animated dialogs with deeper descriptions; dialogs support Escape-to-close and move focus to the close button.
+- **Responsive presentation:** layouts adapt across screen sizes, with dedicated experience and education timelines and a desktop contact rail.
+- **Navigation tied to content:** a section navigator tracks the current section and provides shortcuts through the page.
+- **Component-oriented engineering:** focused React components, typed project and timeline data, and component-scoped GSAP animation cleanup.
+- **Build automation:** GitHub Actions checks the production build for pull requests targeting `develop` and `deployment/*`.
+
+## Technology
+
+| Area | Stack |
+| --- | --- |
+| Application | Next.js 16 App Router, React 19, TypeScript |
+| Styling | Tailwind CSS 4, Sass/SCSS, CSS theme variables |
+| Motion | GSAP, ScrollTrigger, Draggable, MouseFollower, Lottie |
+| Icons | Lucide React |
+| Tooling | pnpm, ESLint, GitHub Actions |
+| Hosting | Vercel |
+
+## Run locally
+
+Use Node.js 22 and pnpm 10.27.0 to match the build workflow.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install --frozen-lockfile
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm lint   # Run ESLint
+pnpm build  # Create a production build, including TypeScript checks
+pnpm start  # Serve the production build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Build checks and releases
 
-## Learn More
+[PR Build](.github/workflows/pr-build.yml) installs dependencies from the lockfile and runs `pnpm build` when a matching pull request is opened, updated with commits, reopened, or edited. It caches the pnpm store and cancels superseded runs for the same PR.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [CHANGELOG.md](CHANGELOG.md) for **v1.0**, the initial portfolio, and **v1.1**, the GitHub Actions build workflow.
