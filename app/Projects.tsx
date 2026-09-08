@@ -41,6 +41,7 @@ export type ProjectEntry = {
   longDescription: string[];
   githubLink?: string;
   githubServerLink?: string;
+  liveDemoLink?: string;
 };
 
 export default function Projects() {
@@ -49,6 +50,7 @@ export default function Projects() {
   const projects: ProjectEntry[] = [
     {
       title: "Scrumsphere",
+      //FIXME: Add githubLink and githubServerLink once the repository URLs are confirmed.
       stack: {
         frontend: ["typescript", "react", "shadcn", "nextjs", "tailwindcss"],
         backend: ["springboot", "java", "maven"],
@@ -64,11 +66,11 @@ export default function Projects() {
         "The backend is powered by Spring Boot and MongoDB, providing a robust and scalable solution for managing project data.",
         "API endpoint security is implemented using JWT authentication, ensuring that only authorized users can access sensitive data.",
       ],
-      githubLink: "https://github.com/yourusername/scrumsphere",
-      githubServerLink: "https://github.com/yourusername/scrumsphere-server",
     },
     {
       title: "Portfolio Website",
+      githubLink: "https://github.com/A-N1khil/a-n1khil-portfolio",
+      liveDemoLink: "https://a-nikhil.vercel.app",
       stack: {
         frontend: ["typescript", "react", "nextjs", "tailwindcss", "gsap"],
       },
@@ -81,6 +83,7 @@ export default function Projects() {
     },
     {
       title: "ScheduleCare",
+      //FIXME: Add repository URLs once confirmed.
       stack: {
         frontend: ["typescript", "react", "nextjs", "tailwindcss"],
         backend: ["fastapi", "python"],

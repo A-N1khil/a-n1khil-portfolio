@@ -43,7 +43,7 @@ export default function Contact() {
           <nav aria-label="Social links" className="mt-1 flex flex-wrap items-center justify-center gap-x-6">
             {[
               { label: "GitHub", href: "https://github.com/A-N1khil" },
-              { label: "LinkedIn", href: "https://www.linkedin.com" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/a-nikhil/" },
             ].map(({ label, href }) => (
               <a
                 key={label}

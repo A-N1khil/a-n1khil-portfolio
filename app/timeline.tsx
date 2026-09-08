@@ -62,10 +62,10 @@ const timelineItems: TimelineEntry[] = [
     type: "education",
     title: "Bachelor of Technology, Computer Science",
     org: "Vellore Institute of Technology",
-    description: "Graduated with a CGPA of 9.01/10.0",
+    description: "Graduated with a CGPA of 8.89/10",
     longDescription: [
       "Relevant Coursework: Database Management Systems, Computer Architecture, Operating Systems and Natural Language Processing.",
-      "GPA: 8.98/10.0",
+      "GPA: 8.89/10",
     ],
     dateRange: "2019 - 2023",
   },

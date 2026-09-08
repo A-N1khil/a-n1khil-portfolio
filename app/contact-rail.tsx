@@ -14,7 +14,7 @@ type SocialLink = {
 
 const socialLinks: SocialLink[] = [
   { label: "GitHub", href: "https://github.com/A-N1khil" },
-  { label: "LinkedIn", href: "https://www.linkedin.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/a-nikhil/" },
   { label: "Email", href: "mailto:nikhilanand1006@gmail.com" },
 ];
 

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import gsap from "gsap";
 import { badges, type ProjectEntry } from "./Projects";
 
@@ -18,6 +18,11 @@ export default function ProjectModal({ project, origin, onClose }: ProjectModalP
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const isClosingRef = useRef(false);
   const projectBadges = Object.values(project.stack).flat();
+  const projectLinks = [
+    { label: "Source Code", href: project.githubLink },
+    { label: "Backend Source", href: project.githubServerLink },
+    { label: "Live Demo", href: project.liveDemoLink },
+  ].filter((link) => link.href);
 
   const closeModal = useCallback((): void => {
     const dialog = dialogRef.current;
@@ -134,6 +139,23 @@ export default function ProjectModal({ project, origin, onClose }: ProjectModalP
             ))}
           </ul>
         </div>
+
+        {projectLinks.length > 0 && (
+          <nav aria-label={`${project.title} links`} className="mt-6 flex flex-wrap gap-3">
+            {projectLinks.map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-[var(--color-curvature)] px-4 py-2 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--color-secondary)] hover:text-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]"
+              >
+                {label}
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            ))}
+          </nav>
+        )}
 
         <div className="mt-6 flex flex-wrap gap-2 border-t border-[var(--color-curvature)] pt-4 sm:mt-8 sm:pt-6" aria-label={`${project.title} technologies`}>
           {projectBadges.map((badge) => (
