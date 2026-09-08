@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
@@ -15,12 +16,14 @@ gsap.registerPlugin(TextPlugin, ScrambleTextPlugin);
 export default function Landing() {
   const titleRef = useRef<HTMLSpanElement>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
-  const subtextRef = useRef<HTMLParagraphElement>(null);
+  const subtextRef = useRef<HTMLSpanElement>(null);
   const { hollowCursor, solidCursor } = useCursor();
 
   const navItems: string[] = ["About Me", "Skills", "Education", "Work Exp", "Projects"];
 
   const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#________";
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [showScrollDownHint, setShowScrollDownHint] = useState(false);
 
@@ -74,9 +77,10 @@ export default function Landing() {
 
   return (
     <>
-      <section id="hero" className="flex flex-col items-center text-white text-sm">
+      <section id="hero" className="relative isolate flex w-full flex-col items-center px-5 pb-8 text-sm text-[var(--foreground)] sm:px-8 lg:px-12">
         <svg
-          className="absolute -z-10 w-screen -mt-40 md:mt-0"
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-auto w-full"
           width="1440"
           height="676"
           viewBox="0 0 1440 676"
@@ -98,113 +102,79 @@ export default function Landing() {
             </radialGradient>
           </defs>
         </svg>
-        <nav className="z-50 flex items-center justify-between w-full py-4 md:px-16 lg:px-16 xl:px-32 backdrop-blur">
-          <div className="hidden md:flex items-center gap-8 transition duration-500">
-            <a href="https://prebuiltui.com" className="flex items-center gap-2 leading-none">
-              <Image className="invert" src="/laptop.png" alt="Nikhil Anand" width={70} height={20} />
-            </a>
-          </div>
-          <div className={`md:flex items-center gap-8 transition duration-500 ${styles.nav_text}`}>
-            {navItems.map((item: string, index: number) => {
-              return (
-                <div key={index} className="relative inline-block pt-5">
-                  <span className="absolute left-[95%] top-2 -translate-x-1/2 text-xs text-zinc-400">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <Link
-                    key={index}
-                    href={`#${item.toLowerCase().replace(/\s/g, "")}`}
-                    className="hover:text-cyan-300 hover:text-2xl transition-all duration-300 ease-in-out text-base"
-                    onMouseEnter={hollowCursor}
-                    onMouseLeave={solidCursor}
-                  >
-                    {`// ${item}`}
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-          <div className="hidden md:block space-x-3">
-            <button className="hover:bg-slate-300/20 transition px-6 py-2 border border-slate-400 rounded-md">
-              Login
-            </button>
-          </div>
-          <button id="open-menu" className="md:hidden active:scale-90 transition">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="26"
-              height="26"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-menu-icon lucide-menu"
-            >
-              <path d="M4 5h16" />
-              <path d="M4 12h16" />
-              <path d="M4 19h16" />
-            </svg>
-          </button>
-        </nav>
-        <div
-          id="mobile-navLinks"
-          className="fixed inset-0 z-[100] bg-black/60 backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 -translate-x-full"
+        <nav
+          aria-label="Main navigation"
+          className="z-50 flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 py-4 backdrop-blur"
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              setIsMenuOpen(false);
+              event.currentTarget.querySelector<HTMLButtonElement>("button")?.focus();
+            }
+          }}
         >
-          {navItems.map((item: string, index: number) => {
-            return (
-              <a href={`#${item.toLowerCase().replace(/\s/g, "")}`} key={index}>
-                {item}
-              </a>
-            );
-          })}
-          <a href="#products">Skills</a>
-          <a href="#resources">Education</a>
-          <a href="#stories">Work Exp</a>
-          <a href="#pricing">Contact Me</a>
+          <Link href="#hero" aria-label="Nikhil Anand — home" className="shrink-0">
+            <Image className="h-auto w-12 invert lg:w-[70px]" src="/laptop.png" alt="" width={70} height={20} />
+          </Link>
           <button
-            id="close-menu"
-            className="active:ring-3 active:ring-white aspect-square size-10 p-1 items-center justify-center bg-slate-100 hover:bg-slate-200 transition text-black rounded-md flex"
+            type="button"
+            aria-label={isMenuOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={isMenuOpen}
+            aria-controls="landing-nav-links"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            className="flex size-11 items-center justify-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] lg:hidden"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-x-icon lucide-x"
-            >
-              <path d="M18 6 6 18" />
-              <path d="m6 6 12 12" />
-            </svg>
+            {isMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
-        </div>
+          <div
+            id="landing-nav-links"
+            className={`${isMenuOpen ? "flex" : "hidden"} w-full flex-col gap-2 lg:flex lg:w-auto lg:flex-row lg:items-center lg:gap-6 xl:gap-8 ${styles.nav_text}`}
+          >
+            {navItems.map((item, index) => (
+              <Link
+                key={item}
+                href={`#${item.toLowerCase().replace(/\s/g, "")}`}
+                onClick={() => setIsMenuOpen(false)}
+                className="relative flex min-h-11 items-center gap-3 rounded-sm py-3 text-base transition-colors duration-300 hover:text-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] lg:pt-5"
+                onMouseEnter={hollowCursor}
+                onMouseLeave={solidCursor}
+              >
+                <span aria-hidden="true" className="text-xs text-zinc-400 lg:absolute lg:right-0 lg:top-0">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {`// ${item}`}
+              </Link>
+            ))}
+          </div>
+        </nav>
 
-        <div className="mt-32 min-h-[90px] flex items-center justify-center">
-          <h1 className="text-center text-4xl gap-2 leading-tight md:text-6xl md:leading-[70px] font-semibold max-w-4xl">
-            <span className={`${styles.title_text}`} ref={titleRef}></span>
-            <span className="inline-block ml-1" ref={cursorRef}>
-              |
+        <div className="mt-16 flex w-full max-w-4xl items-center justify-center sm:mt-24 lg:mt-32">
+          <h1 className="grid w-full text-center text-3xl font-semibold leading-tight sm:text-5xl lg:text-6xl lg:leading-[70px]">
+            <span aria-hidden="true" className={`invisible col-start-1 row-start-1 ${styles.title_text}`}>
+              Hi! I am Nikhil Anand!<span className="ml-1">|</span>
             </span>
+            <span className="col-start-1 row-start-1" aria-hidden="true">
+              <span className={styles.title_text} ref={titleRef}></span>
+              <span className={`ml-1 inline-block ${styles.title_text}`} ref={cursorRef}>|</span>
+            </span>
+            <span className="sr-only">Hi! I am Nikhil Anand!</span>
           </h1>
         </div>
 
-        <div className="mt-2 min-h-[40px] flex items-center justify-center">
-          <p className={`text-center text-2xl max-w-2xl ${styles.subtitle_text}`}>
-            <span ref={subtextRef}></span>
+        <div className="mt-4 flex w-full max-w-2xl items-center justify-center">
+          <p className={`grid w-full text-center text-base leading-relaxed sm:text-xl lg:text-2xl ${styles.subtitle_text}`}>
+            <span className="invisible col-start-1 row-start-1" aria-hidden="true">
+              A CS Grad and a Full Stack Web Developer
+            </span>
+            <span className="col-start-1 row-start-1 break-words" ref={subtextRef} aria-hidden="true"></span>
+            <span className="sr-only">A CS Grad and a Full Stack Web Developer</span>
           </p>
         </div>
 
-        <div className="mt-16 h-[280px] w-full flex items-center justify-center">
+        <div className="mt-10 flex w-full max-w-4xl items-center justify-center sm:mt-12 lg:mt-16">
           <Image
             src="/hero-section-showcase.png"
-            className="w-full rounded-[15px] max-w-4xl"
+            className="h-auto w-full rounded-[15px]"
+            sizes="(min-width: 1024px) 896px, (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)"
             alt="hero section showcase"
             width={1440}
             height={280}
@@ -212,9 +182,9 @@ export default function Landing() {
           />
         </div>
 
-        <div className="h-[4.5rem] mt-16">
+        <div className="mt-8 h-[4.5rem] sm:mt-12 lg:mt-16">
           {showScrollDownHint && (
-            <a href="#aboutme">
+            <a href="#aboutme" aria-label="Scroll to About Me">
               <DotLottieReact
                 src="/lottie/scroll_down_final.lottie"
                 loop

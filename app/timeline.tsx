@@ -173,24 +173,24 @@ export default function Timeline() {
           <section
             id={content.id}
             key={type}
-            className={`timeline-section scroll-mt-12 ${isEducation ? "relative pt-44 md:pt-56" : ""}`}
+            className={`timeline-section scroll-mt-12 ${isEducation ? "relative pt-24 sm:pt-32 lg:pt-56" : ""}`}
           >
             {isEducation && (
               <div
-                className="absolute left-4 top-0 h-44 w-[2px] bg-[var(--color-curvature)] opacity-20 md:left-5 md:h-56"
+                className="absolute left-2 top-0 h-24 w-[2px] bg-[var(--color-curvature)] opacity-20 sm:left-4 sm:h-32 lg:left-5 lg:h-56"
                 aria-hidden="true"
               />
             )}
 
             <header
-              className="timeline-heading mb-16 text-center md:mb-20"
+              className="timeline-heading mb-8 text-center sm:mb-12 lg:mb-20"
               onMouseEnter={hollowCursor}
               onMouseLeave={solidCursor}
             >
-              <h2 className="text-4xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] md:text-5xl">
+              <h2 className="text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl">
                 {content.title}
               </h2>
-              <div className="mx-auto mt-5 max-w-lg text-base italic text-zinc-500">
+              <div className="mx-auto mt-4 max-w-lg text-sm leading-6 italic text-zinc-500 sm:mt-5 sm:text-base">
                 <p>&quot;{content.quote}&quot;</p>
                 <p className="mt-1">— {content.author}</p>
               </div>
@@ -198,22 +198,22 @@ export default function Timeline() {
 
             <div className="relative">
               <div
-                className={`timeline-line absolute bottom-[-7rem] left-4 top-0 w-[2px] origin-top md:left-5 ${
+                className={`timeline-line absolute -bottom-12 left-2 top-0 w-[2px] origin-top sm:-bottom-16 sm:left-4 lg:bottom-[-7rem] lg:left-5 ${
                   isEducation
                     ? "bg-gradient-to-b from-transparent via-[var(--color-curvature)] to-[var(--color-curvature)]"
                     : "bg-gradient-to-b from-[var(--color-curvature)] via-[var(--color-curvature)] to-transparent"
                 }`}
               />
 
-              <div className="space-y-12 md:space-y-16">
+              <div className="space-y-6 sm:space-y-10 lg:space-y-16">
                 {entries.map((item) => (
                   <div
                     key={`${item.type}-${item.title}`}
-                    className="timeline-entry relative pl-12 md:pl-16"
+                    className="timeline-entry relative min-w-0 pl-7 sm:pl-12 lg:pl-16"
                     onMouseEnter={hollowCursor}
                     onMouseLeave={solidCursor}
                   >
-                    <div className="timeline-dot absolute left-4 top-6 z-10 h-4 w-4 -translate-x-1/2 rounded-full bg-[var(--color-secondary)] md:left-5" />
+                    <div className="timeline-dot absolute left-2 top-6 z-10 h-3 w-3 -translate-x-1/2 rounded-full bg-[var(--color-secondary)] sm:left-4 sm:h-4 sm:w-4 lg:left-5" />
 
                     <button
                       type="button"
@@ -224,12 +224,12 @@ export default function Timeline() {
                           origin: event.currentTarget.getBoundingClientRect(),
                         });
                       }}
-                      className="timeline-card group relative w-full overflow-hidden rounded-xl border border-[var(--color-curvature)] bg-[var(--background)] p-5 text-left shadow-lg transition-colors duration-300 hover:border-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] md:p-7"
+                      className="timeline-card group relative w-full overflow-hidden rounded-xl border border-[var(--color-curvature)] bg-[var(--background)] p-4 text-left break-words sm:p-5 shadow-lg transition-colors duration-300 hover:border-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] md:p-7"
                     >
                       <div className="transition-all duration-300 ease-out group-hover:blur-[2px] group-hover:opacity-50">
                         <span className="block text-xs uppercase tracking-[0.25em] text-cyan-300">{item.type}</span>
                         <span className="mt-3 block text-sm text-zinc-500">{item.dateRange}</span>
-                        <span className="mt-2 block text-2xl font-bold text-[var(--foreground)]">{item.title}</span>
+                        <span className="mt-2 block text-xl leading-snug sm:text-2xl font-bold text-[var(--foreground)]">{item.title}</span>
                         <span className="mt-1 block text-sm text-zinc-400">{item.org}</span>
                         <span className="mt-4 block text-sm leading-6 text-zinc-400">{item.description}</span>
                       </div>

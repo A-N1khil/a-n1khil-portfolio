@@ -96,7 +96,7 @@ export default function ProjectModal({ project, origin, onClose }: ProjectModalP
   return createPortal(
     <div
       ref={backdropRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-6 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-3 backdrop-blur-sm sm:p-6"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) closeModal();
       }}
@@ -106,39 +106,39 @@ export default function ProjectModal({ project, origin, onClose }: ProjectModalP
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-modal-title"
-        className="relative flex max-h-[calc(100vh-3rem)] w-full max-w-2xl flex-col rounded-3xl border border-[var(--color-curvature)] bg-[var(--background)] p-8 text-left shadow-2xl md:p-10"
+        className="relative max-h-[calc(100dvh-1.5rem)] w-full max-w-2xl overflow-y-auto overscroll-contain rounded-2xl sm:max-h-[calc(100dvh-3rem)] sm:rounded-3xl border border-[var(--color-curvature)] bg-[var(--background)] p-5 text-left break-words shadow-2xl sm:p-8 md:p-10"
       >
         <button
           ref={closeButtonRef}
           type="button"
           aria-label="Close project details"
           onClick={closeModal}
-          className="absolute right-5 top-5 rounded-full border border-[var(--color-curvature)] p-2 text-zinc-400 transition-colors hover:text-[var(--foreground)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
+          className="absolute right-3 top-3 flex size-11 items-center justify-center rounded-full sm:right-5 sm:top-5 border border-[var(--color-curvature)] p-2 text-zinc-400 transition-colors hover:text-[var(--foreground)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
         >
           <X size={20} />
         </button>
 
         <h2
           id="project-modal-title"
-          className="pr-12 text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] md:text-4xl"
+          className="pr-12 text-2xl leading-snug sm:text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] md:text-4xl"
         >
           {project.title}
         </h2>
 
-        <div className="my-7 h-px shrink-0 bg-[var(--color-curvature)]" />
+        <div className="my-5 h-px sm:my-7 bg-[var(--color-curvature)]" />
 
-        <div className="min-h-0 overflow-y-auto pr-2">
-          <ul className="list-disc space-y-3 pl-5 text-base leading-7 text-zinc-300 marker:text-[var(--color-secondary)]">
+        <div className="min-w-0">
+          <ul className="list-disc space-y-3 pl-5 text-sm leading-6 sm:text-base sm:leading-7 text-zinc-300 marker:text-[var(--color-secondary)]">
             {project.longDescription.map((detail) => (
               <li key={detail}>{detail}</li>
             ))}
           </ul>
         </div>
 
-        <div className="mt-8 flex shrink-0 flex-wrap gap-2 border-t border-[var(--color-curvature)] pt-6" aria-label={`${project.title} technologies`}>
+        <div className="mt-6 flex flex-wrap gap-2 border-t border-[var(--color-curvature)] pt-4 sm:mt-8 sm:pt-6" aria-label={`${project.title} technologies`}>
           {projectBadges.map((badge) => (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={badge} src={badges[badge]} alt={badge} className="h-6 max-w-full" />
+            <img key={badge} src={badges[badge]} alt={badge} className="h-6 max-w-full object-contain" />
           ))}
         </div>
       </div>

@@ -100,13 +100,13 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="px-6 pb-24 pt-32 md:px-8 md:pb-32 md:pt-40">
+    <section id="projects" className="px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 md:px-16 lg:px-12 lg:pb-32 lg:pt-40">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-center text-4xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] md:text-5xl">
+        <h2 className="text-center text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl">
           Projects
         </h2>
 
-        <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 lg:mt-16 xl:grid-cols-3">
           {projects.map((project) => {
             const projectBadges = Object.values(project.stack).flat();
 
@@ -121,19 +121,19 @@ export default function Projects() {
                     origin: event.currentTarget.getBoundingClientRect(),
                   });
                 }}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-curvature)] bg-white/3 p-6 text-left shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] md:p-8 [font-family:var(--font-geist-sans)]"
+                className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-[var(--color-curvature)] bg-white/3 p-5 text-left break-words shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] sm:p-6 xl:p-8 [font-family:var(--font-geist-sans)]"
               >
                 <div className="flex h-full flex-col transition-all duration-300 ease-out group-hover:blur-[2px] group-hover:opacity-50">
-                  <h3 className="text-2xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]">
+                  <h3 className="text-xl leading-snug sm:text-2xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]">
                     {project.title}
                   </h3>
-                  <p className="mt-4 flex-1 leading-7 text-zinc-300">{project.description}</p>
+                  <p className="mt-4 flex-1 text-sm leading-6 sm:text-base sm:leading-7 text-zinc-300">{project.description}</p>
 
                   <div className="mt-6 flex flex-wrap gap-2" aria-label={`${project.title} technologies`}>
                     {projectBadges.map((badge) => (
                       // These compact shields are supplied by the badge service defined above.
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img key={badge} src={badges[badge]} alt={badge} className="h-6 max-w-full" />
+                      <img key={badge} src={badges[badge]} alt={badge} className="h-6 max-w-full object-contain" />
                     ))}
                   </div>
                 </div>
