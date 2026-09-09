@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Heart } from "lucide-react";
 import { useCursor } from "./CursorProvider";
 
 export default function Contact() {
@@ -12,7 +12,11 @@ export default function Contact() {
       className="relative flex min-h-svh flex-col items-center px-5 pb-6 pt-16 text-center sm:px-8 sm:pb-8 sm:pt-20 md:px-16 lg:px-12 lg:pt-28"
     >
       <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center">
-        <p onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="text-sm tracking-[0.18em] text-[var(--color-secondary)] [font-family:var(--font-monaco)] md:text-base">
+        <p
+          onMouseEnter={hollowCursor}
+          onMouseLeave={solidCursor}
+          className="text-sm tracking-[0.18em] text-[var(--color-secondary)] [font-family:var(--font-monaco)] md:text-base"
+        >
           What&apos;s Next?
         </p>
 
@@ -24,7 +28,11 @@ export default function Contact() {
           Get In Touch
         </h2>
 
-        <p onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="mt-6 max-w-2xl text-base leading-7 text-zinc-400 sm:mt-8 [font-family:var(--font-geist-sans)]">
+        <p
+          onMouseEnter={hollowCursor}
+          onMouseLeave={solidCursor}
+          className="mt-6 max-w-2xl text-base leading-7 text-zinc-400 sm:mt-8 [font-family:var(--font-geist-sans)]"
+        >
           I&apos;m always open to discussing new opportunities, interesting projects, or simply connecting. Whether you
           have a question or just want to say hello, I&apos;ll do my best to get back to you.
         </p>
@@ -53,7 +61,11 @@ export default function Contact() {
                 className="group inline-flex min-h-11 items-center gap-1.5 rounded-sm text-sm text-zinc-300 transition-colors hover:text-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]"
               >
                 <span className="emphasis-point">{label}</span>
-                <ArrowUpRight aria-hidden="true" size={14} className="text-zinc-500 transition-colors group-hover:text-[var(--color-secondary)]" />
+                <ArrowUpRight
+                  aria-hidden="true"
+                  size={14}
+                  className="text-zinc-500 transition-colors group-hover:text-[var(--color-secondary)]"
+                />
               </a>
             ))}
           </nav>
@@ -84,7 +96,7 @@ export default function Contact() {
               Vercel
             </a>
           </span>{" "}
-          by yours truly.
+          by yours truly <Heart className="inline-block text-red-500 hover:fill-red-500" />.
         </p>
         <p>
           Built with{" "}
@@ -107,9 +119,7 @@ export default function Contact() {
           </span>
           .
         </p>
-        <p>
-          Nikhil Anand &copy; {new Date().getFullYear()}
-        </p>
+        <p>Nikhil Anand &copy; {new Date().getFullYear()}</p>
       </footer>
     </section>
   );

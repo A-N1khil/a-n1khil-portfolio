@@ -1,6 +1,8 @@
 # Changelog
 
-Notable changes to Nikhil Anand's portfolio website, grouped by release.
+## v2.0.1
+
+- Adding Vercel analytics.
 
 ## v2.0
 
