@@ -2,6 +2,15 @@
 
 Notable changes to Nikhil Anand's portfolio website, grouped by release.
 
+## v2.0
+
+### Improved
+
+- Responsive layouts across all sections, with mobile navigation, adaptive skills cards, and scrollable detail dialogs.
+- Accessibility through dialog focus management, keyboard skills controls, larger navigation targets, and reduced-motion support.
+- Clearer hero messaging, personalized page and social-sharing metadata, corrected profile details, and GitHub/LinkedIn contact links on every screen size.
+- Consistent cursor hover behavior and visible card detail cues; added ApplyFlow and a 2×2 project grid that stacks into one column on mobile.
+
 ## v1.1
 
 ### Added

@@ -7,7 +7,7 @@ import ProjectModal from "./project-modal";
 
 export const badges = {
   react: "https://shieldcn.dev/badge/React.svg?variant=outline&brand=react",
-  nextjs: "https://shieldcn.dev/badge/Next.js.svg?variant=outline&brand=nextdotjs",
+  nextjs: "https://shieldcn.dev/badge/Next.js.svg?brand=nextdotjs&mode=light",
   tailwindcss: "https://shieldcn.dev/badge/Tailwind%20CSS.svg?variant=outline&brand=tailwindcss",
   typescript: "https://shieldcn.dev/badge/TypeScript.svg?variant=outline&brand=typescript",
   springboot: "https://shieldcn.dev/badge/Spring%20Boot.svg?variant=outline&brand=springboot",
@@ -52,7 +52,7 @@ export default function Projects() {
   const projects: ProjectEntry[] = [
     {
       title: "ApplyFlow",
-      //FIXME: Add repository and live demo URLs once confirmed.
+      githubLink: "https://github.com/A-N1khil/applyflow",
       stack: {
         frontend: ["typescript", "react", "nextjs", "tailwindcss"],
         backend: ["fastapi", "python"],
@@ -66,7 +66,8 @@ export default function Projects() {
     },
     {
       title: "Scrumsphere",
-      //FIXME: Add githubLink and githubServerLink once the repository URLs are confirmed.
+      githubLink: "https://github.com/A-N1khil/scrumsphere",
+      githubServerLink: "https://github.com/A-N1khil/scrumsphere-server",
       stack: {
         frontend: ["typescript", "react", "shadcn", "nextjs", "tailwindcss"],
         backend: ["springboot", "java", "maven"],
@@ -99,7 +100,7 @@ export default function Projects() {
     },
     {
       title: "ScheduleCare",
-      //FIXME: Add repository URLs once confirmed.
+      githubLink: "https://github.com/A-N1khil/520-SchedulCare",
       stack: {
         frontend: ["typescript", "react", "nextjs", "tailwindcss"],
         backend: ["fastapi", "python"],
@@ -121,7 +122,11 @@ export default function Projects() {
   return (
     <section id="projects" className="px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 md:px-16 lg:px-12 lg:pb-32 lg:pt-40">
       <div className="mx-auto max-w-6xl">
-        <h2 onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="text-center text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl">
+        <h2
+          onMouseEnter={hollowCursor}
+          onMouseLeave={solidCursor}
+          className="text-center text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl"
+        >
           Projects
         </h2>
 
@@ -148,7 +153,9 @@ export default function Projects() {
                   <h3 className="text-xl leading-snug sm:text-2xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]">
                     {project.title}
                   </h3>
-                  <p className="mt-4 flex-1 text-sm leading-6 sm:text-base sm:leading-7 text-zinc-300">{project.description}</p>
+                  <p className="mt-4 flex-1 text-sm leading-6 sm:text-base sm:leading-7 text-zinc-300">
+                    {project.description}
+                  </p>
 
                   <span className="mt-4 text-sm text-[var(--color-secondary)]">View details →</span>
                   <div className="mt-6 flex flex-wrap gap-2" aria-label={`${project.title} technologies`}>
