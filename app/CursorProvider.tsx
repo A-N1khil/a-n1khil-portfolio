@@ -3,6 +3,7 @@
 import { Context, createContext, ReactNode, RefObject, useContext, useEffect, useRef } from "react";
 import MouseFollower from "mouse-follower";
 import gsap from "gsap";
+import { useReducedMotion } from "./use-reduced-motion";
 
 
 type CursorContextType = {
@@ -25,9 +26,11 @@ export function useCursor(): CursorContextType {
 }
 
 export default function CursorProvider({ children }: { children: ReactNode }) {
+    const reducedMotion = useReducedMotion();
     const cursorRef: RefObject<MouseFollower | null> = useRef<MouseFollower | null>(null)
 
     useEffect(() => {
+        if (reducedMotion) return;
         MouseFollower.registerGSAP(gsap);
 
         cursorRef.current = new MouseFollower({
@@ -38,7 +41,7 @@ export default function CursorProvider({ children }: { children: ReactNode }) {
             cursorRef.current?.destroy();
             cursorRef.current = null;
         };
-    }, []);
+    }, [reducedMotion]);
 
     const addClass = (className: string) => {
         cursorRef.current?.el?.classList.add(className);

@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useCursor } from "./CursorProvider";
 import { BookOpenText } from "lucide-react";
 import ProjectModal from "./project-modal";
 
 export const badges = {
   react: "https://shieldcn.dev/badge/React.svg?variant=outline&brand=react",
-  nextjs: "https://shieldcn.dev/badge/Next.js.svg?variant=outline&brand=nextdotjs",
+  nextjs: "https://shieldcn.dev/badge/Next.js.svg?brand=nextdotjs&mode=light",
   tailwindcss: "https://shieldcn.dev/badge/Tailwind%20CSS.svg?variant=outline&brand=tailwindcss",
   typescript: "https://shieldcn.dev/badge/TypeScript.svg?variant=outline&brand=typescript",
   springboot: "https://shieldcn.dev/badge/Spring%20Boot.svg?variant=outline&brand=springboot",
@@ -41,14 +42,32 @@ export type ProjectEntry = {
   longDescription: string[];
   githubLink?: string;
   githubServerLink?: string;
+  liveDemoLink?: string;
 };
 
 export default function Projects() {
+  const { hollowCursor, solidCursor } = useCursor();
   const [expandedProject, setExpandedProject] = useState<{ project: ProjectEntry; origin: DOMRect } | null>(null);
 
   const projects: ProjectEntry[] = [
     {
+      title: "ApplyFlow",
+      githubLink: "https://github.com/A-N1khil/applyflow",
+      stack: {
+        frontend: ["typescript", "react", "nextjs", "tailwindcss"],
+        backend: ["fastapi", "python"],
+      },
+      description: "A job application tracker for organizing opportunities and following application progress.",
+      longDescription: [
+        "ApplyFlow brings job applications, company information, notes, and application activity into one place.",
+        "The frontend uses Next.js, React, TypeScript, and Tailwind CSS, with dashboard and application-detail views.",
+        "The Python backend uses FastAPI and SQLAlchemy, with separate services for applications, companies, notes, and activity.",
+      ],
+    },
+    {
       title: "Scrumsphere",
+      githubLink: "https://github.com/A-N1khil/scrumsphere",
+      githubServerLink: "https://github.com/A-N1khil/scrumsphere-server",
       stack: {
         frontend: ["typescript", "react", "shadcn", "nextjs", "tailwindcss"],
         backend: ["springboot", "java", "maven"],
@@ -64,11 +83,11 @@ export default function Projects() {
         "The backend is powered by Spring Boot and MongoDB, providing a robust and scalable solution for managing project data.",
         "API endpoint security is implemented using JWT authentication, ensuring that only authorized users can access sensitive data.",
       ],
-      githubLink: "https://github.com/yourusername/scrumsphere",
-      githubServerLink: "https://github.com/yourusername/scrumsphere-server",
     },
     {
       title: "Portfolio Website",
+      githubLink: "https://github.com/A-N1khil/a-n1khil-portfolio",
+      liveDemoLink: "https://a-nikhil.vercel.app",
       stack: {
         frontend: ["typescript", "react", "nextjs", "tailwindcss", "gsap"],
       },
@@ -76,11 +95,12 @@ export default function Projects() {
       longDescription: [
         "The Portfolio Website is a personal project designed to showcase my work and skills.",
         "Built with Next.js, TypeScript, and TailwindCSS for a modern look and feel.",
-        "WebFlow animations are implemented using GSAP for smooth and engaging transitions.",
+        "Animations are implemented using GSAP for smooth and engaging transitions.",
       ],
     },
     {
       title: "ScheduleCare",
+      githubLink: "https://github.com/A-N1khil/520-SchedulCare",
       stack: {
         frontend: ["typescript", "react", "nextjs", "tailwindcss"],
         backend: ["fastapi", "python"],
@@ -100,18 +120,24 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="px-6 pb-24 pt-32 md:px-8 md:pb-32 md:pt-40">
+    <section id="projects" className="px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 md:px-16 lg:px-12 lg:pb-32 lg:pt-40">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-center text-4xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] md:text-5xl">
+        <h2
+          onMouseEnter={hollowCursor}
+          onMouseLeave={solidCursor}
+          className="text-center text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl"
+        >
           Projects
         </h2>
 
-        <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:gap-6 md:auto-rows-fr md:grid-cols-2 lg:mt-16">
           {projects.map((project) => {
             const projectBadges = Object.values(project.stack).flat();
 
             return (
               <button
+                onMouseEnter={hollowCursor}
+                onMouseLeave={solidCursor}
                 type="button"
                 aria-haspopup="dialog"
                 key={project.title}
@@ -121,19 +147,22 @@ export default function Projects() {
                     origin: event.currentTarget.getBoundingClientRect(),
                   });
                 }}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-curvature)] bg-white/3 p-6 text-left shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] md:p-8 [font-family:var(--font-geist-sans)]"
+                className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-[var(--color-curvature)] bg-white/3 p-5 text-left break-words shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] sm:p-6 xl:p-8 [font-family:var(--font-geist-sans)]"
               >
                 <div className="flex h-full flex-col transition-all duration-300 ease-out group-hover:blur-[2px] group-hover:opacity-50">
-                  <h3 className="text-2xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]">
+                  <h3 className="text-xl leading-snug sm:text-2xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]">
                     {project.title}
                   </h3>
-                  <p className="mt-4 flex-1 leading-7 text-zinc-300">{project.description}</p>
+                  <p className="mt-4 flex-1 text-sm leading-6 sm:text-base sm:leading-7 text-zinc-300">
+                    {project.description}
+                  </p>
 
+                  <span className="mt-4 text-sm text-[var(--color-secondary)]">View details →</span>
                   <div className="mt-6 flex flex-wrap gap-2" aria-label={`${project.title} technologies`}>
                     {projectBadges.map((badge) => (
                       // These compact shields are supplied by the badge service defined above.
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img key={badge} src={badges[badge]} alt={badge} className="h-6 max-w-full" />
+                      <img key={badge} src={badges[badge]} alt={badge} className="h-6 max-w-full object-contain" />
                     ))}
                   </div>
                 </div>

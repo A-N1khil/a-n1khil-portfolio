@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowUpRight, Heart } from "lucide-react";
 import { useCursor } from "./CursorProvider";
 
 export default function Contact() {
@@ -8,38 +9,75 @@ export default function Contact() {
   return (
     <section
       id="contactme"
-      className="relative flex min-h-screen items-center justify-center px-6 py-28 text-center md:px-8 md:py-36"
+      className="relative flex min-h-svh flex-col items-center px-5 pb-6 pt-16 text-center sm:px-8 sm:pb-8 sm:pt-20 md:px-16 lg:px-12 lg:pt-28"
     >
-      <div className="mx-auto flex max-w-3xl flex-col items-center">
-        <p className="text-sm tracking-[0.18em] text-[var(--color-secondary)] [font-family:var(--font-monaco)] md:text-base">
+      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center">
+        <p
+          onMouseEnter={hollowCursor}
+          onMouseLeave={solidCursor}
+          className="text-sm tracking-[0.18em] text-[var(--color-secondary)] [font-family:var(--font-monaco)] md:text-base"
+        >
           What&apos;s Next?
         </p>
 
         <h2
-          className="mt-6 text-3xl font-bold leading-tight text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-3xl md:text-5xl"
+          className="mt-6 text-3xl font-bold leading-tight text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl"
           onMouseEnter={hollowCursor}
           onMouseLeave={solidCursor}
         >
           Get In Touch
         </h2>
 
-        <p className="mt-8 max-w-2xl text-base leading-4 text-zinc-400 sm:text-md md:text-md md:leading-5 [font-family:var(--font-geist-sans)]">
+        <p
+          onMouseEnter={hollowCursor}
+          onMouseLeave={solidCursor}
+          className="mt-6 max-w-2xl text-base leading-7 text-zinc-400 sm:mt-8 [font-family:var(--font-geist-sans)]"
+        >
           I&apos;m always open to discussing new opportunities, interesting projects, or simply connecting. Whether you
           have a question or just want to say hello, I&apos;ll do my best to get back to you.
         </p>
 
         <a
           href="mailto:nikhilanand1006@gmail.com"
-          className="mt-12 rounded-lg border border-[var(--color-secondary)] px-8 py-4 text-base text-[var(--color-secondary)] [font-family:var(--font-monaco)] transition-colors duration-300 hover:bg-[var(--color-secondary)] hover:text-[var(--foreground)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] md:mt-14"
+          className="mt-8 inline-flex min-h-11 items-center justify-center rounded-lg border border-[var(--color-secondary)] px-8 py-4 text-base text-[var(--color-secondary)] [font-family:var(--font-monaco)] transition-colors duration-300 hover:bg-[var(--color-secondary)] hover:text-[var(--foreground)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] sm:mt-10 lg:mt-14"
           onMouseEnter={hollowCursor}
           onMouseLeave={solidCursor}
         >
           Say Hello
         </a>
+
+        <div onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="mt-7">
+          <p className="text-sm text-zinc-500">Or find me on</p>
+          <nav aria-label="Social links" className="mt-1 flex flex-wrap items-center justify-center gap-x-6">
+            {[
+              { label: "GitHub", href: "https://github.com/A-N1khil" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/a-nikhil/" },
+            ].map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex min-h-11 items-center gap-1.5 rounded-sm text-sm text-zinc-300 transition-colors hover:text-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]"
+              >
+                <span className="emphasis-point">{label}</span>
+                <ArrowUpRight
+                  aria-hidden="true"
+                  size={14}
+                  className="text-zinc-500 transition-colors group-hover:text-[var(--color-secondary)]"
+                />
+              </a>
+            ))}
+          </nav>
+        </div>
       </div>
 
-      <div onMouseEnter={hollowCursor} onMouseLeave={solidCursor}>
-        <p className="absolute bottom-20 left-1/2 w-full max-w-2xl -translate-x-1/2 px-6 text-center text-xs leading-5 text-zinc-400 [font-family:var(--font-geist-sans)] sm:bottom-22 sm:text-sm">
+      <footer
+        className="mx-auto mt-16 w-full max-w-2xl space-y-3 break-words text-xs leading-5 text-zinc-400 [font-family:var(--font-geist-sans)] sm:mt-20 sm:text-sm lg:mt-24 [&_.emphasis-point]:max-w-full"
+        onMouseEnter={hollowCursor}
+        onMouseLeave={solidCursor}
+      >
+        <p>
           Designed in{" "}
           <span className="emphasis-point">
             <a target="_blank" rel="noopener noreferrer" href="https://www.figma.com/">
@@ -58,9 +96,9 @@ export default function Contact() {
               Vercel
             </a>
           </span>{" "}
-          by yours truly.
+          by yours truly <Heart className="inline-block text-red-500 hover:fill-red-500" />.
         </p>
-        <p className="absolute bottom-14 left-1/2 w-full max-w-xl -translate-x-1/2 px-6 text-center text-xs leading-5 text-zinc-400 [font-family:var(--font-geist-sans)] sm:bottom-16 sm:text-sm">
+        <p>
           Built with{" "}
           <span className="emphasis-point">
             <a target="_blank" rel="noopener noreferrer" href="https://nextjs.org/">
@@ -81,10 +119,8 @@ export default function Contact() {
           </span>
           .
         </p>
-        <p className="absolute bottom-6 left-1/2 w-full max-w-xl -translate-x-1/2 px-6 text-center text-xs leading-5 text-zinc-400 [font-family:var(--font-geist-sans)] sm:bottom-8 sm:text-sm">
-          Nikhil Anand &copy; {new Date().getFullYear()}
-        </p>
-      </div>
+        <p>Nikhil Anand &copy; {new Date().getFullYear()}</p>
+      </footer>
     </section>
   );
 }
