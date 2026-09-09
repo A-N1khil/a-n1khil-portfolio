@@ -6,17 +6,17 @@ export default function About() {
   const { hollowCursor, solidCursor } = useCursor();
 
   return (
-    <section id="aboutme" className="w-full px-8 py-24 md:px-0">
-      <div className="mx-auto w-full md:w-3/5">
+    <section id="aboutme" className="w-full px-5 py-16 sm:px-8 sm:py-20 md:px-16 lg:px-12 lg:py-24">
+      <div className="mx-auto w-full max-w-3xl">
         <div className="flex items-center gap-4 md:gap-6">
-          <h2 className="shrink-0 text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] md:text-5xl">
+          <h2 onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="shrink-0 text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl">
             About Me
           </h2>
-          <div className="h-px w-full max-w-lg bg-[var(--color-curvature)]" aria-hidden="true" />
+          <div className="h-px min-w-0 flex-1 bg-[var(--color-curvature)]" aria-hidden="true" />
         </div>
 
         <div
-          className="mt-12 space-y-6 text-left text-base leading-7 text-zinc-400 md:mt-16 md:text-base"
+          className="mt-8 space-y-5 break-words text-left text-base leading-7 text-zinc-400 sm:mt-10 sm:space-y-6 lg:mt-16 [&_.emphasis-point]:max-w-full"
           onMouseEnter={hollowCursor}
           onMouseLeave={solidCursor}
         >

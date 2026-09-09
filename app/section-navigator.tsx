@@ -6,7 +6,8 @@ import { useCursor } from "./CursorProvider";
 const sections = [
   { id: "aboutme", label: "About" },
   { id: "skills", label: "Skills" },
-  { id: "experience", label: "Experience" },
+  { id: "workexp", label: "Experience" },
+  { id: "education", label: "Education" },
   { id: "projects", label: "Projects" },
   { id: "contactme", label: "Contact" },
 ];
@@ -60,16 +61,18 @@ export default function SectionNavigator() {
   return (
     <aside
       aria-label="Page sections"
-      className={`fixed bottom-6 right-3 z-40 transition-all duration-500 ease-out sm:bottom-10 sm:right-6 lg:right-8 ${
+      inert={!isVisible}
+      aria-hidden={!isVisible}
+      className={`hidden md:block fixed bottom-6 right-3 z-40 transition-all duration-500 ease-out sm:bottom-10 sm:right-6 lg:right-8 ${
         isVisible ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-6 opacity-0"
       }`}
     >
-      <nav className="relative flex h-52 w-10 flex-col items-center justify-between rounded-2xl border border-white/10 bg-[var(--color-dark-card)]/80 py-4 shadow-xl shadow-black/25 backdrop-blur-md">
+      <nav className="relative flex w-11 flex-col items-center justify-between rounded-2xl border border-white/10 bg-[var(--color-dark-card)]/80 py-4 shadow-xl shadow-black/25 backdrop-blur-md">
         <div className="absolute bottom-6 left-1/2 top-6 w-px -translate-x-1/2 bg-white/15" aria-hidden="true" />
 
         <div
-          className="pointer-events-none absolute left-1/2 top-4 h-5 w-[3px] -translate-x-1/2 rounded-full bg-[var(--color-secondary)] shadow-[0_0_10px_var(--color-secondary)] transition-transform duration-500 ease-out"
-          style={{ transform: `translate(-50%, ${activeIndex * 39}px)` }}
+          className="pointer-events-none absolute left-1/2 top-4 h-11 w-[3px] -translate-x-1/2 rounded-full bg-[var(--color-secondary)] shadow-[0_0_10px_var(--color-secondary)] transition-transform duration-500 ease-out"
+          style={{ transform: `translate(-50%, ${activeIndex * 44}px)` }}
           aria-hidden="true"
         />
 
@@ -79,10 +82,10 @@ export default function SectionNavigator() {
             type="button"
             aria-label={`Go to ${label}`}
             aria-current={activeIndex === index ? "location" : undefined}
-            onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+            onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" })}
             onMouseEnter={hollowCursor}
             onMouseLeave={solidCursor}
-            className="group relative z-10 flex h-5 w-full items-center justify-center focus-visible:outline-none"
+            className="group relative z-10 flex h-11 w-full items-center justify-center focus-visible:rounded-lg focus-visible:outline-2 focus-visible:outline-[var(--color-primary)]"
           >
             <span className="pointer-events-none absolute right-full mr-3 rounded-md border border-white/10 bg-[var(--color-dark-card)] px-2 py-1 font-mono text-[0.65rem] text-zinc-300 opacity-0 shadow-lg transition-all duration-200 group-hover:-translate-x-1 group-hover:opacity-100 group-focus-visible:-translate-x-1 group-focus-visible:opacity-100">
               {label}

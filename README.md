@@ -18,11 +18,11 @@ I'm interested in full-stack and software engineering opportunities where I can 
 
 The portfolio brings together work experience, education, technical skills, and project details so you can quickly explore both my background and how I build.
 
-| Featured project | Focus | Technologies |
-| --- | --- | --- |
-| Scrumsphere | Agile project management, tasks, backlogs, and JWT-secured APIs | Next.js, TypeScript, Spring Boot, Java, MongoDB |
-| ScheduleCare | Healthcare appointment scheduling, location services, and two-factor authentication | Next.js, TypeScript, FastAPI, Python, MongoDB |
-| Portfolio Website | Custom interaction design, scroll-driven animation, and responsive presentation | Next.js, React, TypeScript, Tailwind CSS, GSAP |
+| Featured project  | Focus                                                                               | Technologies                                    |
+| ----------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Scrumsphere       | Agile project management, tasks, backlogs, and JWT-secured APIs                     | Next.js, TypeScript, Spring Boot, Java, MongoDB |
+| ScheduleCare      | Healthcare appointment scheduling, location services, and two-factor authentication | Next.js, TypeScript, FastAPI, Python, MongoDB   |
+| Portfolio Website | Custom interaction design, scroll-driven animation, and responsive presentation     | Next.js, React, TypeScript, Tailwind CSS, GSAP  |
 
 This repository contains the portfolio website; the other projects are showcased within it.
 
@@ -37,14 +37,14 @@ This repository contains the portfolio website; the other projects are showcased
 
 ## Technology
 
-| Area | Stack |
-| --- | --- |
-| Application | Next.js 16 App Router, React 19, TypeScript |
-| Styling | Tailwind CSS 4, Sass/SCSS, CSS theme variables |
-| Motion | GSAP, ScrollTrigger, Draggable, MouseFollower, Lottie |
-| Icons | Lucide React |
-| Tooling | pnpm, ESLint, GitHub Actions |
-| Hosting | Vercel |
+| Area        | Stack                                                 |
+| ----------- | ----------------------------------------------------- |
+| Application | Next.js 16 App Router, React 19, TypeScript           |
+| Styling     | Tailwind CSS 4, Sass/SCSS, CSS theme variables        |
+| Motion      | GSAP, ScrollTrigger, Draggable, MouseFollower, Lottie |
+| Icons       | Lucide React                                          |
+| Tooling     | pnpm, ESLint, GitHub Actions                          |
+| Hosting     | Vercel                                                |
 
 ## Run locally
 
