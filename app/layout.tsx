@@ -3,6 +3,7 @@ import "./globals.scss";
 import { fontVariables } from "@/app/fonts";
 import CursorProvider from "@/app/CursorProvider";
 import React from "react";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://a-nikhil.vercel.app"),
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Nikhil Anand — Portfolio",
     title: "Nikhil Anand | Full-Stack Software Developer",
-    description: "Full-stack engineering, thoughtful interfaces, and production experience. Explore my projects, experience, and education.",
+    description:
+      "Full-stack engineering, thoughtful interfaces, and production experience. Explore my projects, experience, and education.",
   },
   twitter: {
     card: "summary",
@@ -32,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`dark ${fontVariables}`}>
       <body className={`antialiased dark ${fontVariables}`}>
+        <Analytics />
         <CursorProvider>{children}</CursorProvider>
       </body>
     </html>
