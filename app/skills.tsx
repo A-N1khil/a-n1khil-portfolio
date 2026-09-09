@@ -1,7 +1,8 @@
 "use client";
 
-import { type CSSProperties, useLayoutEffect, useRef } from "react";
+import { type CSSProperties, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { useReducedMotion } from "./use-reduced-motion";
 import { Draggable } from "gsap/Draggable";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCursor } from "@/app/CursorProvider";
@@ -22,6 +23,9 @@ type SkillCardStyle = CSSProperties & {
 };
 
 export default function Skills() {
+  const reducedMotion = useReducedMotion();
+  const navigateRef = useRef<(direction: number) => void>(() => {});
+  const [activeSkill, setActiveSkill] = useState(0);
   const titleRef = useRef<HTMLDivElement | null>(null);
   const subtitleRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -33,7 +37,7 @@ export default function Skills() {
     {
       experimental: false,
       title: "Languages",
-      content: "Python, Java, JavaScript, TypeScript, Javascript, SQL",
+      content: "Python, Java, JavaScript, TypeScript, SQL",
       icon: FileBraces,
       accent: "#48ec9a",
     },
@@ -47,7 +51,7 @@ export default function Skills() {
     {
       experimental: false,
       title: "Databases",
-      content: "PostgresSQL, MongoDB, Sybase ASE",
+      content: "PostgreSQL, MongoDB, Sybase ASE",
       icon: Database,
       accent: "#22d3ee",
     },
@@ -94,6 +98,8 @@ export default function Skills() {
       let current = 0;
 
       function render(animate = true) {
+        setActiveSkill(current);
+        animate = animate && !reducedMotion;
         cards.forEach((card, index) => {
           let diff = index - current;
 
@@ -115,59 +121,64 @@ export default function Skills() {
         });
       }
 
-      gsap.set(cards, {
-        x: 0,
-        scale: 0.4,
-        opacity: 0,
-        rotate: 0,
-      });
+      if (!reducedMotion) {
+        gsap.set(cards, {
+          x: 0,
+          scale: 0.4,
+          opacity: 0,
+          rotate: 0,
+        });
 
-      gsap.set(titleRef.current, {
-        opacity: 0,
-        y: 80,
-      });
+        gsap.set(titleRef.current, {
+          opacity: 0,
+          y: 80,
+        });
 
-      gsap.set(subtitleRef.current, {
-        opacity: 0,
-        y: 80,
-      });
+        gsap.set(subtitleRef.current, {
+          opacity: 0,
+          y: 80,
+        });
 
-      ScrollTrigger.create({
-        trigger: wrapper,
-        start: "top 80%",
-        once: true,
-        onEnter: () => {
-          gsap
-            .timeline()
-            .to(titleRef.current, {
-              y: 0,
-              opacity: 1,
-              duration: 0.8,
-              ease: "power3.out",
-            })
-            .to(
-              subtitleRef.current,
-              {
+        ScrollTrigger.create({
+          trigger: wrapper,
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            gsap
+              .timeline()
+              .to(titleRef.current, {
                 y: 0,
                 opacity: 1,
                 duration: 0.8,
                 ease: "power3.out",
-              },
-              "-=0.35",
-            )
-            .add(() => {
-              hasEntered = true;
-              render();
-            }, "-=0.35");
-        },
-      });
+              })
+              .to(
+                subtitleRef.current,
+                {
+                  y: 0,
+                  opacity: 1,
+                  duration: 0.8,
+                  ease: "power3.out",
+                },
+                "-=0.35",
+              )
+              .add(() => {
+                hasEntered = true;
+                render();
+              }, "-=0.35");
+          },
+        });
+
+      } else {
+        hasEntered = true;
+        render(false);
+      }
 
       [draggable] = Draggable.create(proxy, {
         type: "x",
         trigger: wrapper,
         allowNativeTouchScrolling: true,
-        inertia: true,
-        throwResistance: 1200,
+
         onDrag() {
           current = wrapIndex(Math.round(-this.x / spacing));
           if (hasEntered) render();
@@ -179,18 +190,27 @@ export default function Skills() {
         onDragEnd() {
           gsap.to(proxy, {
             x: -current * spacing,
-            duration: 0.4,
+            duration: reducedMotion ? 0 : 0.4,
             ease: "power3.out",
           });
         },
         onThrowComplete() {
           gsap.to(proxy, {
             x: -current * spacing,
-            duration: 0.4,
+            duration: reducedMotion ? 0 : 0.4,
             ease: "power3.out",
           });
         },
       });
+
+      navigateRef.current = (direction) => {
+        if (!hasEntered) return;
+        current = wrapIndex(current + direction);
+        gsap.killTweensOf(proxy);
+        gsap.set(proxy, { x: -current * spacing });
+        draggable?.update();
+        render();
+      };
 
       resizeObserver = new ResizeObserver(() => {
         // Use the containing width so a swipe stays practical on narrow screens.
@@ -205,15 +225,21 @@ export default function Skills() {
     }, wrapper);
 
     return () => {
+      navigateRef.current = () => {};
       resizeObserver?.disconnect();
       draggable?.kill();
       gsap.killTweensOf([...cards, proxy]);
       ctx.revert();
     };
-  }, [skills.length]);
+  }, [skills.length, reducedMotion]);
 
   return (
-    <section id="skills" className="relative w-full overflow-hidden py-16 sm:py-20 lg:py-24">
+    <section id="skills" onKeyDown={(event) => {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        navigateRef.current(event.key === "ArrowRight" ? 1 : -1);
+      }
+    }} className="relative w-full overflow-hidden py-16 sm:py-20 lg:py-24">
       <div ref={titleRef} className="mb-6 px-5 text-center sm:mb-8 sm:px-8 lg:mb-10">
         <h2
           className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)]"
@@ -245,6 +271,7 @@ export default function Skills() {
             return (
               <article
                 key={skill.title}
+                aria-hidden={activeSkill !== index}
                 ref={(el: HTMLElement | null) => {
                   if (el) {
                     cardsRef.current[index] = el;
@@ -294,7 +321,7 @@ export default function Skills() {
                   </div>
                 </div>
 
-                <div className="relative border-t border-white/10 pt-5">
+                <div onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="relative border-t border-white/10 pt-5">
                   <div className="mb-3 flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-[0.22em]">
                     <span className="text-zinc-500">Toolkit</span>
                     {skill.experimental && <span className="text-[var(--skill-accent)]">Exploring</span>}
@@ -308,6 +335,12 @@ export default function Skills() {
 
         <div ref={proxyRef} className="invisible absolute" />
       </div>
+      <div className="flex flex-wrap items-center justify-center gap-4 px-5">
+        <button onMouseEnter={hollowCursor} onMouseLeave={solidCursor} type="button" aria-label="Previous skill" onClick={() => navigateRef.current(-1)} className="min-h-11 rounded-lg border border-[var(--color-curvature)] px-4 focus-visible:outline-2 focus-visible:outline-[var(--color-primary)]">← Previous</button>
+        <p onMouseEnter={hollowCursor} onMouseLeave={solidCursor} aria-live="polite" aria-atomic="true" className="text-sm text-zinc-400">{skills[activeSkill].title} · {activeSkill + 1}/{skills.length}</p>
+        <button onMouseEnter={hollowCursor} onMouseLeave={solidCursor} type="button" aria-label="Next skill" onClick={() => navigateRef.current(1)} className="min-h-11 rounded-lg border border-[var(--color-curvature)] px-4 focus-visible:outline-2 focus-visible:outline-[var(--color-primary)]">Next →</button>
+      </div>
+      <p onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="mt-3 px-5 text-center text-xs text-zinc-500">Swipe, drag, or use the buttons and arrow keys to explore.</p>
     </section>
   );
 }

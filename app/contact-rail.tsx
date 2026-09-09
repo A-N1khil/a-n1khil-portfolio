@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
+import { useReducedMotion } from "./use-reduced-motion";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCursor } from "./CursorProvider";
 
@@ -59,6 +60,7 @@ function SocialIcon({ name }: { name: SocialLink["label"] }) {
 }
 
 export default function ContactRail() {
+  const reducedMotion = useReducedMotion();
   const railRef = useRef<HTMLElement | null>(null);
   const { hollowCursor, solidCursor } = useCursor();
 
@@ -77,7 +79,7 @@ export default function ContactRail() {
             autoAlpha: 1,
             x: 0,
             pointerEvents: "auto",
-            duration: 0.55,
+            duration: reducedMotion ? 0 : 0.55,
             ease: "power3.out",
           });
         },
@@ -86,7 +88,7 @@ export default function ContactRail() {
             autoAlpha: 1,
             x: 0,
             pointerEvents: "auto",
-            duration: 0.55,
+            duration: reducedMotion ? 0 : 0.55,
             ease: "power3.out",
           });
         },
@@ -95,7 +97,7 @@ export default function ContactRail() {
             autoAlpha: 0,
             x: -24,
             pointerEvents: "none",
-            duration: 0.4,
+            duration: reducedMotion ? 0 : 0.4,
             ease: "power2.in",
           });
         },
@@ -103,7 +105,7 @@ export default function ContactRail() {
     });
 
     return () => context.revert();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <aside

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useReducedMotion } from "./use-reduced-motion";
 import { Menu, X } from "lucide-react";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -14,6 +15,7 @@ import { useCursor } from "./CursorProvider";
 gsap.registerPlugin(TextPlugin, ScrambleTextPlugin);
 
 export default function Landing() {
+  const reducedMotion = useReducedMotion();
   const titleRef = useRef<HTMLSpanElement>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
   const subtextRef = useRef<HTMLSpanElement>(null);
@@ -30,6 +32,12 @@ export default function Landing() {
   useEffect(() => {
     if (!titleRef.current || !cursorRef.current || !subtextRef.current) return;
 
+    if (reducedMotion) {
+      titleRef.current.textContent = "Hi! I am Nikhil Anand!";
+      subtextRef.current.textContent = "Full-Stack Developer with 3+ Years of Professional Experience";
+      cursorRef.current.style.opacity = "0";
+      return;
+    }
     const gsapContext = gsap.context(() => {
       const timeline = gsap.timeline({
         onComplete: () => {
@@ -62,7 +70,7 @@ export default function Landing() {
         .to(subtextRef.current, {
           duration: 1.8,
           scrambleText: {
-            text: "A CS Grad and a Full Stack Web Developer",
+            text: "Full-Stack Developer with 3+ Years of Professional Experience",
             chars: SCRAMBLE_CHARS,
             revealDelay: 0.2,
             speed: 0.3,
@@ -73,7 +81,7 @@ export default function Landing() {
     return () => {
       gsapContext.revert();
     };
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <>
@@ -112,10 +120,12 @@ export default function Landing() {
             }
           }}
         >
-          <Link href="#hero" aria-label="Nikhil Anand — home" className="shrink-0">
+          <Link onMouseEnter={hollowCursor} onMouseLeave={solidCursor} href="#hero" aria-label="Nikhil Anand — home" className="shrink-0">
             <Image className="h-auto w-12 invert lg:w-[70px]" src="/laptop.png" alt="" width={70} height={20} />
           </Link>
           <button
+            onMouseEnter={hollowCursor}
+            onMouseLeave={solidCursor}
             type="button"
             aria-label={isMenuOpen ? "Close navigation" : "Open navigation"}
             aria-expanded={isMenuOpen}
@@ -148,7 +158,7 @@ export default function Landing() {
         </nav>
 
         <div className="mt-16 flex w-full max-w-4xl items-center justify-center sm:mt-24 lg:mt-32">
-          <h1 className="grid w-full text-center text-3xl font-semibold leading-tight sm:text-5xl lg:text-6xl lg:leading-[70px]">
+          <h1 onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="grid w-full text-center text-3xl font-semibold leading-tight sm:text-5xl lg:text-6xl lg:leading-[70px]">
             <span aria-hidden="true" className={`invisible col-start-1 row-start-1 ${styles.title_text}`}>
               Hi! I am Nikhil Anand!<span className="ml-1">|</span>
             </span>
@@ -161,13 +171,19 @@ export default function Landing() {
         </div>
 
         <div className="mt-4 flex w-full max-w-2xl items-center justify-center">
-          <p className={`grid w-full text-center text-base leading-relaxed sm:text-xl lg:text-2xl ${styles.subtitle_text}`}>
+          <p onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className={`grid w-full text-center text-base leading-relaxed sm:text-xl lg:text-2xl ${styles.subtitle_text}`}>
             <span className="invisible col-start-1 row-start-1" aria-hidden="true">
-              A CS Grad and a Full Stack Web Developer
+              Full-Stack Developer with 3+ Years of Professional Experience
             </span>
             <span className="col-start-1 row-start-1 break-words" ref={subtextRef} aria-hidden="true"></span>
-            <span className="sr-only">A CS Grad and a Full Stack Web Developer</span>
+            <span className="sr-only">Full-Stack Developer with 3+ Years of Professional Experience</span>
           </p>
+        </div>
+
+        {/* //FIXME: Add a résumé download link here once the PDF is available in assets. */}
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Link onMouseEnter={hollowCursor} onMouseLeave={solidCursor} href="#projects" className="inline-flex min-h-11 items-center rounded-lg border border-[var(--color-secondary)] px-5 py-3 text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-[var(--foreground)] focus-visible:outline-2 focus-visible:outline-offset-4">View Projects</Link>
+          <Link onMouseEnter={hollowCursor} onMouseLeave={solidCursor} href="#contactme" className="inline-flex min-h-11 items-center rounded-lg px-5 py-3 text-zinc-300 hover:text-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-offset-4">Get in Touch</Link>
         </div>
 
         <div className="mt-10 flex w-full max-w-4xl items-center justify-center sm:mt-12 lg:mt-16">
@@ -175,7 +191,7 @@ export default function Landing() {
             src="/hero-section-showcase.png"
             className="h-auto w-full rounded-[15px]"
             sizes="(min-width: 1024px) 896px, (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)"
-            alt="hero section showcase"
+            alt=""
             width={1440}
             height={280}
             priority
@@ -183,8 +199,8 @@ export default function Landing() {
         </div>
 
         <div className="mt-8 h-[4.5rem] sm:mt-12 lg:mt-16">
-          {showScrollDownHint && (
-            <a href="#aboutme" aria-label="Scroll to About Me">
+          {!reducedMotion && showScrollDownHint && (
+            <a onMouseEnter={hollowCursor} onMouseLeave={solidCursor} href="#aboutme" aria-label="Scroll to About Me">
               <DotLottieReact
                 src="/lottie/scroll_down_final.lottie"
                 loop

@@ -1,9 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import { useCallback, useLayoutEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import gsap from "gsap";
+import { useCursor } from "./CursorProvider";
+import { useReducedMotion } from "./use-reduced-motion";
+import { useDialogAccessibility } from "./use-dialog-accessibility";
 import type { TimelineEntry } from "./timeline";
 
 type TimelineModalProps = {
@@ -13,10 +16,12 @@ type TimelineModalProps = {
 };
 
 export default function TimelineModal({ entry, origin, onClose }: TimelineModalProps) {
+  const { hollowCursor, solidCursor } = useCursor();
   const backdropRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const isClosingRef = useRef(false);
+  const reducedMotion = useReducedMotion();
 
   const closeModal = useCallback((): void => {
     const dialog = dialogRef.current;
@@ -24,6 +29,7 @@ export default function TimelineModal({ entry, origin, onClose }: TimelineModalP
     if (!dialog || !backdrop || isClosingRef.current) return;
 
     isClosingRef.current = true;
+    if (reducedMotion) { onClose(); return; }
     const dialogBounds = dialog.getBoundingClientRect();
 
     gsap
@@ -42,13 +48,14 @@ export default function TimelineModal({ entry, origin, onClose }: TimelineModalP
         },
         0,
       );
-  }, [onClose, origin]);
+  }, [onClose, origin, reducedMotion]);
 
   useLayoutEffect(() => {
     const dialog = dialogRef.current;
     const backdrop = backdropRef.current;
     if (!dialog || !backdrop) return;
 
+    if (reducedMotion) return;
     const dialogBounds = dialog.getBoundingClientRect();
     const context = gsap.context(() => {
       gsap.set(backdrop, { opacity: 0 });
@@ -70,27 +77,13 @@ export default function TimelineModal({ entry, origin, onClose }: TimelineModalP
         opacity: 1,
         duration: 0.5,
         ease: "power3.out",
-        onComplete: () => closeButtonRef.current?.focus(),
       });
     });
 
     return (): void => context.revert();
-  }, [origin]);
+  }, [origin, reducedMotion]);
 
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const handleKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === "Escape") closeModal();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return (): void => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [closeModal]);
+  useDialogAccessibility(dialogRef, closeModal);
 
   return createPortal(
     <div
@@ -102,6 +95,8 @@ export default function TimelineModal({ entry, origin, onClose }: TimelineModalP
     >
       <div
         ref={dialogRef}
+        onMouseEnter={hollowCursor}
+        onMouseLeave={solidCursor}
         role="dialog"
         aria-modal="true"
         aria-labelledby="timeline-modal-title"

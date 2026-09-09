@@ -1,9 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import { useCallback, useLayoutEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { ArrowUpRight, X } from "lucide-react";
 import gsap from "gsap";
+import { useCursor } from "./CursorProvider";
+import { useReducedMotion } from "./use-reduced-motion";
+import { useDialogAccessibility } from "./use-dialog-accessibility";
 import { badges, type ProjectEntry } from "./Projects";
 
 type ProjectModalProps = {
@@ -13,10 +16,12 @@ type ProjectModalProps = {
 };
 
 export default function ProjectModal({ project, origin, onClose }: ProjectModalProps) {
+  const { hollowCursor, solidCursor } = useCursor();
   const backdropRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const isClosingRef = useRef(false);
+  const reducedMotion = useReducedMotion();
   const projectBadges = Object.values(project.stack).flat();
   const projectLinks = [
     { label: "Source Code", href: project.githubLink },
@@ -30,6 +35,7 @@ export default function ProjectModal({ project, origin, onClose }: ProjectModalP
     if (!dialog || !backdrop || isClosingRef.current) return;
 
     isClosingRef.current = true;
+    if (reducedMotion) { onClose(); return; }
     const dialogBounds = dialog.getBoundingClientRect();
 
     gsap
@@ -48,13 +54,14 @@ export default function ProjectModal({ project, origin, onClose }: ProjectModalP
         },
         0,
       );
-  }, [onClose, origin]);
+  }, [onClose, origin, reducedMotion]);
 
   useLayoutEffect(() => {
     const dialog = dialogRef.current;
     const backdrop = backdropRef.current;
     if (!dialog || !backdrop) return;
 
+    if (reducedMotion) return;
     const dialogBounds = dialog.getBoundingClientRect();
     const context = gsap.context(() => {
       gsap.set(backdrop, { opacity: 0 });
@@ -76,27 +83,13 @@ export default function ProjectModal({ project, origin, onClose }: ProjectModalP
         opacity: 1,
         duration: 0.5,
         ease: "power3.out",
-        onComplete: () => closeButtonRef.current?.focus(),
       });
     });
 
     return (): void => context.revert();
-  }, [origin]);
+  }, [origin, reducedMotion]);
 
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const handleKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === "Escape") closeModal();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return (): void => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [closeModal]);
+  useDialogAccessibility(dialogRef, closeModal);
 
   return createPortal(
     <div
@@ -108,6 +101,8 @@ export default function ProjectModal({ project, origin, onClose }: ProjectModalP
     >
       <div
         ref={dialogRef}
+        onMouseEnter={hollowCursor}
+        onMouseLeave={solidCursor}
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-modal-title"

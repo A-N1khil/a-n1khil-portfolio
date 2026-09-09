@@ -9,7 +9,7 @@ export default function About() {
     <section id="aboutme" className="w-full px-5 py-16 sm:px-8 sm:py-20 md:px-16 lg:px-12 lg:py-24">
       <div className="mx-auto w-full max-w-3xl">
         <div className="flex items-center gap-4 md:gap-6">
-          <h2 className="shrink-0 text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl">
+          <h2 onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="shrink-0 text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl">
             About Me
           </h2>
           <div className="h-px min-w-0 flex-1 bg-[var(--color-curvature)]" aria-hidden="true" />

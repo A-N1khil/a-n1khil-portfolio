@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useCursor } from "./CursorProvider";
 import { BookOpenText } from "lucide-react";
 import ProjectModal from "./project-modal";
 
@@ -45,9 +46,24 @@ export type ProjectEntry = {
 };
 
 export default function Projects() {
+  const { hollowCursor, solidCursor } = useCursor();
   const [expandedProject, setExpandedProject] = useState<{ project: ProjectEntry; origin: DOMRect } | null>(null);
 
   const projects: ProjectEntry[] = [
+    {
+      title: "ApplyFlow",
+      //FIXME: Add repository and live demo URLs once confirmed.
+      stack: {
+        frontend: ["typescript", "react", "nextjs", "tailwindcss"],
+        backend: ["fastapi", "python"],
+      },
+      description: "A job application tracker for organizing opportunities and following application progress.",
+      longDescription: [
+        "ApplyFlow brings job applications, company information, notes, and application activity into one place.",
+        "The frontend uses Next.js, React, TypeScript, and Tailwind CSS, with dashboard and application-detail views.",
+        "The Python backend uses FastAPI and SQLAlchemy, with separate services for applications, companies, notes, and activity.",
+      ],
+    },
     {
       title: "Scrumsphere",
       //FIXME: Add githubLink and githubServerLink once the repository URLs are confirmed.
@@ -78,7 +94,7 @@ export default function Projects() {
       longDescription: [
         "The Portfolio Website is a personal project designed to showcase my work and skills.",
         "Built with Next.js, TypeScript, and TailwindCSS for a modern look and feel.",
-        "WebFlow animations are implemented using GSAP for smooth and engaging transitions.",
+        "Animations are implemented using GSAP for smooth and engaging transitions.",
       ],
     },
     {
@@ -105,16 +121,18 @@ export default function Projects() {
   return (
     <section id="projects" className="px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 md:px-16 lg:px-12 lg:pb-32 lg:pt-40">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-center text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl">
+        <h2 onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="text-center text-3xl font-bold text-[var(--foreground)] [font-family:var(--font-arvo)] sm:text-4xl lg:text-5xl">
           Projects
         </h2>
 
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 lg:mt-16 xl:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:gap-6 md:auto-rows-fr md:grid-cols-2 lg:mt-16">
           {projects.map((project) => {
             const projectBadges = Object.values(project.stack).flat();
 
             return (
               <button
+                onMouseEnter={hollowCursor}
+                onMouseLeave={solidCursor}
                 type="button"
                 aria-haspopup="dialog"
                 key={project.title}
@@ -132,6 +150,7 @@ export default function Projects() {
                   </h3>
                   <p className="mt-4 flex-1 text-sm leading-6 sm:text-base sm:leading-7 text-zinc-300">{project.description}</p>
 
+                  <span className="mt-4 text-sm text-[var(--color-secondary)]">View details →</span>
                   <div className="mt-6 flex flex-wrap gap-2" aria-label={`${project.title} technologies`}>
                     {projectBadges.map((badge) => (
                       // These compact shields are supplied by the badge service defined above.

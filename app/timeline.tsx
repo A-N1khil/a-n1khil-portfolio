@@ -5,6 +5,7 @@ import { BookOpenText } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCursor } from "@/app/CursorProvider";
+import { useReducedMotion } from "./use-reduced-motion";
 import TimelineModal from "./timeline-modal";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -87,11 +88,13 @@ const sectionContent = {
 } satisfies Record<TimelineEntryType, { id: string; title: string; quote: string; author: string }>;
 
 export default function Timeline() {
+  const reducedMotion = useReducedMotion();
   const timelineRef = useRef<HTMLDivElement | null>(null);
   const [expandedEntry, setExpandedEntry] = useState<{ entry: TimelineEntry; origin: DOMRect } | null>(null);
   const { hollowCursor, solidCursor } = useCursor();
 
   useLayoutEffect(() => {
+    if (reducedMotion) return;
     const context = gsap.context(() => {
       const sections = gsap.utils.toArray<HTMLElement>(".timeline-section");
 
@@ -160,7 +163,7 @@ export default function Timeline() {
     }, timelineRef);
 
     return () => context.revert();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <div ref={timelineRef} className="mx-auto w-full max-w-3xl">
@@ -232,6 +235,7 @@ export default function Timeline() {
                         <span className="mt-2 block text-xl leading-snug sm:text-2xl font-bold text-[var(--foreground)]">{item.title}</span>
                         <span className="mt-1 block text-sm text-zinc-400">{item.org}</span>
                         <span className="mt-4 block text-sm leading-6 text-zinc-400">{item.description}</span>
+                        <span className="mt-4 block text-sm text-[var(--color-secondary)]">View details →</span>
                       </div>
 
                       <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">

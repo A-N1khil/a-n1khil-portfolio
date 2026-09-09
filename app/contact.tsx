@@ -12,7 +12,7 @@ export default function Contact() {
       className="relative flex min-h-svh flex-col items-center px-5 pb-6 pt-16 text-center sm:px-8 sm:pb-8 sm:pt-20 md:px-16 lg:px-12 lg:pt-28"
     >
       <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center">
-        <p className="text-sm tracking-[0.18em] text-[var(--color-secondary)] [font-family:var(--font-monaco)] md:text-base">
+        <p onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="text-sm tracking-[0.18em] text-[var(--color-secondary)] [font-family:var(--font-monaco)] md:text-base">
           What&apos;s Next?
         </p>
 
@@ -24,7 +24,7 @@ export default function Contact() {
           Get In Touch
         </h2>
 
-        <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-400 sm:mt-8 [font-family:var(--font-geist-sans)]">
+        <p onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="mt-6 max-w-2xl text-base leading-7 text-zinc-400 sm:mt-8 [font-family:var(--font-geist-sans)]">
           I&apos;m always open to discussing new opportunities, interesting projects, or simply connecting. Whether you
           have a question or just want to say hello, I&apos;ll do my best to get back to you.
         </p>
@@ -38,7 +38,7 @@ export default function Contact() {
           Say Hello
         </a>
 
-        <div className="mt-7 md:hidden">
+        <div onMouseEnter={hollowCursor} onMouseLeave={solidCursor} className="mt-7">
           <p className="text-sm text-zinc-500">Or find me on</p>
           <nav aria-label="Social links" className="mt-1 flex flex-wrap items-center justify-center gap-x-6">
             {[
